@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .success { background: #d4edda; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        textarea { width: 100%; margin: 10px 0; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Test Form Submission</h2>
+    
+    <form method="post" action="/test/submit">
+        <div>
+            <label><strong>Test Text:</strong></label><br>
+            <textarea name="testText" rows="5" placeholder="Enter some test text...">This is a test message</textarea>
+        </div>
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <div th:if="${success}" class="success">
+        <h3>Form Submitted Successfully!</h3>
+        <p><strong>Received Text:</strong> <span th:text="${receivedText}"></span></p>
+        <p><strong>Text Length:</strong> <span th:text="${textLength}"></span></p>
+    </div>
+    
+    <div th:if="${testSuccess}" class="success">
+        <h3>Resume Optimization Test - SUCCESS!</h3>
+        <p><strong>Original Score:</strong> <span th:text="${originalScore}"></span>%</p>
+        <p><strong>Optimized Score:</strong> <span th:text="${optimizedScore}"></span>%</p>
+        <p><strong>Keywords Added:</strong> <span th:text="${#lists.size(keywords)}"></span></p>
+        <p><strong>Insights Generated:</strong> <span th:text="${#lists.size(insights)}"></span></p>
+        <details>
+            <summary>View Details</summary>
+            <p><strong>Original:</strong><br><pre th:text="${originalText}"></pre></p>
+            <p><strong>Optimized:</strong><br><pre th:text="${optimizedText}"></pre></p>
+        </details>
+    </div>
+    
+    <div th:if="${testError}" style="background: #f8d7da; padding: 10px; border-radius: 4px; margin: 10px 0;">
+        <h3>Resume Optimization Test - FAILED!</h3>
+        <p th:text="${testError}"></p>
+    </div>
+    
+    <hr>
+    <p><a href="/test/resume-optimization">Test Resume Optimization Service</a></p>
+    <p><a href="/resume">Go to Resume Optimizer</a></p>
+</body>
+</html>

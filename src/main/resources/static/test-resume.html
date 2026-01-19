@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Resume Optimizer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        textarea { width: 100%; margin: 10px 0; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Test Resume Optimization</h2>
+    <form method="post" action="/resume/optimize" enctype="multipart/form-data">
+        <div>
+            <label><strong>Resume Text:</strong></label><br>
+            <textarea name="resumeText" rows="8" placeholder="Paste your resume text here...">John Doe
+Software Developer
+
+Experience:
+- Worked on web applications using Java
+- Developed REST APIs  
+- Used MySQL database
+
+Skills:
+- Java
+- Spring Boot
+- MySQL</textarea>
+        </div>
+        
+        <div>
+            <label><strong>Job Description:</strong></label><br>
+            <textarea name="jobDescription" rows="8" required placeholder="Paste job description here...">We are looking for a Software Engineer with experience in:
+- Java Spring Boot development
+- RESTful API design
+- Microservices architecture
+- Docker containerization
+- Kubernetes orchestration
+- AWS cloud services
+- React frontend development
+- PostgreSQL database
+- Git version control
+- Agile methodologies
+- Unit testing with JUnit
+- CI/CD pipelines</textarea>
+        </div>
+        
+        <button type="submit">Optimize Resume</button>
+    </form>
+    
+    <hr>
+    <p><a href="/resume">Go to main Resume Optimizer page</a></p>
+</body>
+</html>

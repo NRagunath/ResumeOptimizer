@@ -1,0 +1,17 @@
+{{- if .Values.application.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "resumeopt.fullname" . }}-data
+  labels:
+    {{- include "resumeopt.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.application.persistence.size }}
+  {{- if .Values.application.persistence.storageClass }}
+  storageClassName: {{ .Values.application.persistence.storageClass }}
+  {{- end }}
+{{- end }}

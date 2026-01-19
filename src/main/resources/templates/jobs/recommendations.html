@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Recommendations - ResumeOpt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    .job-card {
+      transition: transform 0.2s;
+    }
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .source-badge {
+      font-size: 0.8em;
+      padding: 0.2em 0.6em;
+      border-radius: 10px;
+    }
+    .source-portal {
+      background-color: #e2e8f0;
+      color: #475569;
+    }
+    .source-company {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    .verified-badge {
+      color: #059669;
+      font-size: 0.9em;
+    }
+    .recommendation-score {
+      background: linear-gradient(45deg, #10b981, #059669);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-modern">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <i class="fas fa-briefcase me-2"></i>ResumeOpt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/resume">Resume Optimizer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/jobs">All Jobs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/jobs/fresher">Fresher Jobs</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/jobs/recommendations">Job Recommendations</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tracking">Tracking Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-modern">
+  <div class="content-wrapper animate-fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="text-gradient mb-2">
+          <i class="fas fa-bullseye me-2"></i>Personalized Job Recommendations
+        </h1>
+        <p class="text-muted">
+          Showing <span th:text="${allJobs.size()}">0</span> curated entry-level positions matched to your profile.
+        </p>
+      </div>
+      <div>
+        <a href="/jobs/api/recommendations" class="btn btn-outline-primary btn-sm me-2">
+          <i class="fas fa-bolt me-1"></i>Recommendations API
+        </a>
+        <a href="/jobs/api/all" class="btn btn-outline-secondary btn-sm">
+          <i class="fas fa-code me-1"></i>Full API
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card-modern p-3 text-center">
+          <h3 class="text-primary mb-1" th:text="${totalJobs}">0</h3>
+          <small class="text-muted">Total Recommended Jobs</small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-modern p-3 text-center border-primary bg-light">
+          <h3 class="text-success mb-1" th:text="${freshJobsCount}">0</h3>
+          <small class="text-muted fw-bold">New in Last 24h</small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-modern p-3 text-center">
+          <h3 class="text-info mb-1" th:text="${weeklyJobsCount}">0</h3>
+          <small class="text-muted">Added This Week</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Listings -->
+    <div class="card-modern">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Recommended Positions</h5>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Filter Experience
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/jobs/recommendations">All Entry-Level</a></li>
+            <li><a class="dropdown-item" href="/jobs/recommendations?jobType=0-1">0-1 Years</a></li>
+            <li><a class="dropdown-item" href="/jobs/recommendations?jobType=0-2">0-2 Years</a></li>
+            <li><a class="dropdown-item" href="/jobs/recommendations?jobType=fresher">Fresher Only</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div th:if="${allJobs.empty}" class="text-center p-5">
+          <i class="fas fa-spinner fa-spin fa-2x text-muted mb-3"></i>
+          <p class="text-muted">Finding personalized job recommendations... This might take a moment.</p>
+        </div>
+        
+        <div th:unless="${allJobs.empty}" class="list-group list-group-flush">
+          <div th:each="job : ${allJobs}" class="list-group-item p-4 job-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h5 class="mb-1">
+                  <a th:href="${job.applyUrl}" target="_blank" class="text-decoration-none text-dark" th:text="${job.title}">Job Title</a>
+                  <i th:if="${job.linkVerified}" class="fas fa-check-circle verified-badge ms-2" title="Link Verified"></i>
+                </h5>
+                <div class="mb-2">
+                  <span class="fw-bold text-primary" th:text="${job.company}">Company</span>
+                  <span class="mx-2 text-muted">•</span>
+                  <span class="text-muted" th:text="${job.location}">Location</span>
+                </div>
+                <div class="mb-2">
+                  <span class="recommendation-score me-2" th:text="'Match: ' + ${job.matchScore != null ? job.matchScore + '%' : '85%'}">Match: 85%</span>
+                  <span th:if="${job.sourceCompanyUrl != null}" class="source-badge source-company">
+                    <i class="fas fa-building me-1"></i>Career Page
+                  </span>
+                  <span th:unless="${job.sourceCompanyUrl != null}" class="source-badge source-portal">
+                    <i class="fas fa-globe me-1"></i>Portal
+                  </span>
+                  <span class="badge bg-light text-dark border ms-1" th:text="${#temporals.format(job.postedDate, 'MMM dd, yyyy')}">Date</span>
+                </div>
+                <div class="mb-2">
+                  <span class="badge bg-warning text-dark me-1" th:if="${job.jobType != null}" th:text="${job.jobType}">Full-time</span>
+                  <span class="badge bg-info text-dark me-1" th:if="${job.experienceRequired != null}" th:text="${job.experienceRequired} + ' years'">0-2 years</span>
+                  <span class="badge bg-success text-dark me-1" th:if="${job.salaryRange != null}" th:text="${job.salaryRange}">₹3-8 LPA</span>
+                </div>
+              </div>
+              <div>
+                <a th:href="${job.applyUrl}" target="_blank" class="btn btn-primary-modern btn-sm">
+                  Apply Now <i class="fas fa-external-link-alt ms-1"></i>
+                </a>
+                <button class="btn btn-outline-success btn-sm ms-1" title="Save for Later">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+              </div>
+            </div>
+            <p class="mb-0 mt-2 text-muted small" th:text="${#strings.abbreviate(job.description, 200)}">Description...</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <nav aria-label="Job listings pagination">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage} == 1 ? 'disabled' : ''">
+              <a class="page-link" th:href="@{/jobs/recommendations(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
+            </li>
+            
+            <!-- First page -->
+            <li class="page-item" th:classappend="${currentPage} == 1 ? 'active' : ''" th:if="${totalPages > 0}">
+              <a class="page-link" th:href="@{/jobs/recommendations(page=1, size=${pageSize})}">1</a>
+            </li>
+            
+            <!-- Ellipsis if needed -->
+            <li class="page-item disabled" th:if="${currentPage > 3 && totalPages > 5}">
+              <span class="page-link">...</span>
+            </li>
+            
+            <!-- Pages around current page -->
+            <li class="page-item" 
+                th:each="i : ${#numbers.sequence(
+                  #numbers.max(2, currentPage - 1), 
+                  #numbers.min(totalPages - 1, currentPage + 1)
+                )}" 
+                th:classappend="${currentPage} == ${i} ? 'active' : ''">
+              <a class="page-link" th:href="@{/jobs/recommendations(page=${i}, size=${pageSize})}" th:text="${i}">1</a>
+            </li>
+            
+            <!-- Ellipsis if needed -->
+            <li class="page-item disabled" th:if="${currentPage < totalPages - 2 && totalPages > 5}">
+              <span class="page-link">...</span>
+            </li>
+            
+            <!-- Last page -->
+            <li class="page-item" 
+                th:classappend="${currentPage} == ${totalPages} ? 'active' : ''" 
+                th:if="${totalPages > 1}">
+              <a class="page-link" th:href="@{/jobs/recommendations(page=${totalPages}, size=${pageSize})}" th:text="${totalPages}">10</a>
+            </li>
+            
+            <li class="page-item" th:classappend="${currentPage} == ${totalPages} ? 'disabled' : ''">
+              <a class="page-link" th:href="@{/jobs/recommendations(page=${currentPage + 1}, size=${pageSize})}">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <p class="mt-2 mb-0 text-muted">
+          Page <span th:text="${currentPage}">1</span> of <span th:text="${totalPages}">10</span>, 
+          showing <span th:text="${allJobs.size()}">30</span> of <span th:text="${totalJobs}">300</span> recommended jobs
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

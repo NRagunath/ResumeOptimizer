@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application Tracking - ResumeOpt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script defer src="/js/modern-ui.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .status-APPLIED { background: #3b82f6; color: white; }
+    .status-INTERVIEW { background: #f59e0b; color: white; }
+    .status-REJECTED { background: #ef4444; color: white; }
+    .status-OFFER { background: #10b981; color: white; }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-modern">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <i class="fas fa-briefcase me-2"></i>ResumeOpt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/resume">Resume Optimizer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/jobs">Job Listings</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/tracking">Tracking Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-modern">
+  <div class="content-wrapper animate-fade-in">
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+      <div>
+        <h1 class="text-gradient mb-2">
+          <i class="fas fa-chart-line me-2"></i>Application Tracking Dashboard
+        </h1>
+        <p class="text-muted mb-0">Track your job applications, monitor progress, and analyze your success rate</p>
+      </div>
+      <a href="/tracking/export" class="btn btn-success-modern btn-modern mt-3 mt-md-0">
+        <i class="fas fa-file-excel me-2"></i>Export to Excel
+      </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 col-sm-6" th:each="entry : ${counts}">
+        <div class="stats-card" th:style="${entry.key == 'APPLIED' ? 'background: linear-gradient(135deg, #3b82f6, #2563eb);' : 
+                                          entry.key == 'INTERVIEW' ? 'background: linear-gradient(135deg, #f59e0b, #d97706);' :
+                                          entry.key == 'REJECTED' ? 'background: linear-gradient(135deg, #ef4444, #dc2626);' :
+                                          'background: linear-gradient(135deg, #10b981, #059669);'}">
+          <div class="stats-value" th:text="${entry.value}">0</div>
+          <div class="stats-label" th:text="${entry.key}">Status</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <div class="card-modern">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-pie me-2"></i>Application Status Distribution
+            </h5>
+          </div>
+          <div class="card-body">
+            <canvas id="statusChart" height="250"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-modern">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-line me-2"></i>Application Timeline
+            </h5>
+          </div>
+          <div class="card-body">
+            <canvas id="timelineChart" height="250"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Application Form -->
+    <div class="card-modern mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="fas fa-plus-circle me-2"></i>Add New Application
+        </h5>
+      </div>
+      <div class="card-body">
+        <form method="post" action="/tracking/add" class="row g-3" data-validate>
+          <div class="col-md-4">
+            <label class="form-label fw-bold">
+              <i class="fas fa-briefcase me-2"></i>Job Title
+            </label>
+            <input class="form-control form-control-modern" name="jobTitle" placeholder="e.g., Software Engineer" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-bold">
+              <i class="fas fa-building me-2"></i>Company Name
+            </label>
+            <input class="form-control form-control-modern" name="companyName" placeholder="e.g., Tech Corp" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-bold">
+              <i class="fas fa-link me-2"></i>Apply URL
+            </label>
+            <input class="form-control form-control-modern" name="applyUrl" type="url" placeholder="https://...">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-bold">
+              <i class="fas fa-tag me-2"></i>Status
+            </label>
+            <select class="form-select form-control-modern" name="status">
+              <option value="APPLIED">Applied</option>
+              <option value="INTERVIEW">Interview</option>
+              <option value="REJECTED">Rejected</option>
+              <option value="OFFER">Offer</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label fw-bold">
+              <i class="fas fa-calendar me-2"></i>Application Date
+            </label>
+            <input class="form-control form-control-modern" type="date" name="applicationDate" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-bold">
+              <i class="fas fa-sticky-note me-2"></i>Notes
+            </label>
+            <textarea class="form-control form-control-modern" name="notes" rows="2" placeholder="Add any notes about this application..."></textarea>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary-modern btn-modern" type="submit">
+              <i class="fas fa-plus me-2"></i>Add Application
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Applications Table -->
+    <div class="card-modern">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="fas fa-list me-2"></i>Your Applications
+        </h5>
+        <div class="d-flex gap-2">
+          <input type="text" class="form-control form-control-modern" id="searchApplications" 
+                 placeholder="Search applications..." style="width: 200px;">
+          <select class="form-select form-control-modern" id="filterStatus" style="width: 150px;">
+            <option value="">All Status</option>
+            <option value="APPLIED">Applied</option>
+            <option value="INTERVIEW">Interview</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="OFFER">Offer</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0" id="applicationsTable">
+            <thead class="table-light">
+              <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Likelihood</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="app : ${applications}" 
+                  th:attr="data-title=${app.jobTitle}, data-company=${app.companyName}, data-status=${app.status}">
+                <td>
+                  <strong th:text="${app.jobTitle}">Job Title</strong>
+                </td>
+                <td th:text="${app.companyName}">Company</td>
+                <td th:text="${#temporals.format(app.applicationDate, 'MMM dd, yyyy')}">Date</td>
+                <td>
+                  <span class="status-badge" 
+                        th:classappend="'status-' + ${app.status}"
+                        th:text="${app.status}">Status</span>
+                </td>
+                <td>
+                  <span class="badge badge-modern" 
+                        th:if="${app.interviewLikelihood != null}"
+                        th:style="${app.interviewLikelihood > 0.7 ? 'background: linear-gradient(135deg, #10b981, #059669);' :
+                                  app.interviewLikelihood > 0.4 ? 'background: linear-gradient(135deg, #f59e0b, #d97706);' :
+                                  'background: linear-gradient(135deg, #ef4444, #dc2626);'}"
+                        th:text="${#numbers.formatPercent(app.interviewLikelihood, 0, 0)}">0%</span>
+                  <span th:if="${app.interviewLikelihood == null}" class="text-muted">-</span>
+                </td>
+                <td>
+                  <small class="text-muted" th:text="${app.notes ?: '-'}">-</small>
+                </td>
+                <td>
+                  <a th:href="${app.applyUrl}" target="_blank" 
+                     class="btn btn-sm btn-outline-modern btn-modern" 
+                     th:if="${app.applyUrl}">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="emptyTableState" class="empty-state" style="display: none;">
+          <div class="empty-state-icon">
+            <i class="fas fa-inbox"></i>
+          </div>
+          <div class="empty-state-title">No Applications Found</div>
+          <div class="empty-state-description">
+            No applications match your search criteria. Try adjusting your filters.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initializeCharts();
+  setupSearch();
+  setupFilter();
+});
+
+// Initialize charts
+function initializeCharts() {
+  const statusData = {
+    APPLIED: parseInt(document.querySelector('[data-status="APPLIED"]')?.parentElement?.textContent || '0'),
+    INTERVIEW: parseInt(document.querySelector('[data-status="INTERVIEW"]')?.parentElement?.textContent || '0'),
+    REJECTED: parseInt(document.querySelector('[data-status="REJECTED"]')?.parentElement?.textContent || '0'),
+    OFFER: parseInt(document.querySelector('[data-status="OFFER"]')?.parentElement?.textContent || '0')
+  };
+  
+  // Status Pie Chart
+  const statusCtx = document.getElementById('statusChart');
+  if (statusCtx) {
+    new Chart(statusCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Applied', 'Interview', 'Rejected', 'Offer'],
+        datasets: [{
+          data: [statusData.APPLIED, statusData.INTERVIEW, statusData.REJECTED, statusData.OFFER],
+          backgroundColor: [
+            '#3b82f6',
+            '#f59e0b',
+            '#ef4444',
+            '#10b981'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+  }
+  
+  // Timeline Chart (placeholder - implement with actual date data)
+  const timelineCtx = document.getElementById('timelineChart');
+  if (timelineCtx) {
+    new Chart(timelineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Applications',
+          data: [2, 5, 3, 4],
+          borderColor: '#6366f1',
+          backgroundColor: 'rgba(99, 102, 241, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+}
+
+// Setup search
+function setupSearch() {
+  const searchInput = document.getElementById('searchApplications');
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(filterTable, 300));
+  }
+}
+
+// Setup status filter
+function setupFilter() {
+  const filterSelect = document.getElementById('filterStatus');
+  if (filterSelect) {
+    filterSelect.addEventListener('change', filterTable);
+  }
+}
+
+// Filter table
+function filterTable() {
+  const searchTerm = document.getElementById('searchApplications')?.value.toLowerCase() || '';
+  const statusFilter = document.getElementById('filterStatus')?.value || '';
+  const rows = document.querySelectorAll('#applicationsTable tbody tr');
+  const emptyState = document.getElementById('emptyTableState');
+  let visibleCount = 0;
+  
+  rows.forEach(row => {
+    const title = row.dataset.title?.toLowerCase() || '';
+    const company = row.dataset.company?.toLowerCase() || '';
+    const status = row.dataset.status || '';
+    
+    const matchesSearch = !searchTerm || title.includes(searchTerm) || company.includes(searchTerm);
+    const matchesStatus = !statusFilter || status === statusFilter;
+    
+    if (matchesSearch && matchesStatus) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+  
+  if (visibleCount === 0) {
+    emptyState.style.display = 'block';
+  } else {
+    emptyState.style.display = 'none';
+  }
+}
+
+// Debounce helper
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+</script>
+</body>
+</html>

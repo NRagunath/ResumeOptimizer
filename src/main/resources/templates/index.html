@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ResumeOpt - Your Career Assistant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <script defer src="/js/realtime.js"></script>
+  <script defer src="/js/modern-ui.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-2xl);
+      margin-bottom: var(--spacing-2xl);
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--gray-600);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .feature-card {
+      height: 100%;
+      transition: all var(--transition-base);
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: var(--spacing-md);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-2xl);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-modern">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-briefcase me-2"></i>ResumeOpt
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/resume">Resume Optimizer</a></li>
+          <li class="nav-item"><a class="nav-link" href="/jobs">All Jobs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/jobs/portals">11 Portals</a></li>
+          <li class="nav-item"><a class="nav-link" href="/jobs/fresher">Fresher Jobs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/company-management">Companies</a></li>
+          <li class="nav-item"><a class="nav-link" href="/tracking">Tracking Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-modern">
+    <!-- Hero Section -->
+    <div class="hero-section animate-fade-in">
+      <h1 class="hero-title">Welcome to ResumeOpt</h1>
+      <p class="hero-subtitle">
+        Your all-in-one career assistant platform for resume optimization, job search, and application tracking
+      </p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="/resume" class="btn btn-primary-modern btn-modern btn-lg">
+          <i class="fas fa-magic me-2"></i>Optimize Resume
+        </a>
+
+        <i class="fas fa-briefcase me-2"></i>Browse Jobs
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stats-card" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+        <div class="stats-value" id="totalJobs">0</div>
+        <div class="stats-label">Available Jobs</div>
+      </div>
+      <div class="stats-card" style="background: linear-gradient(135deg, #10b981, #059669);">
+        <div class="stats-value" id="optimizedResumes">0</div>
+        <div class="stats-label">Resumes Optimized</div>
+      </div>
+      <div class="stats-card" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+        <div class="stats-value" id="applications">0</div>
+        <div class="stats-label">Applications Tracked</div>
+      </div>
+      <div class="stats-card" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+        <div class="stats-value" id="successRate">0%</div>
+        <div class="stats-label">Success Rate</div>
+      </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="grid-modern">
+      <!-- Resume Optimizer -->
+      <div class="card-modern feature-card" onclick="window.location.href='/resume'">
+        <div class="card-body text-center">
+          <div class="feature-icon mx-auto">
+            <i class="fas fa-magic"></i>
+          </div>
+          <h5 class="card-title mb-3">ATS Resume Optimizer</h5>
+          <p class="text-muted mb-4">
+            Upload your resume and paste a job description. See live, side-by-side optimizations with ATS keyword
+            enhancements while preserving structure.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge badge-modern badge-primary-modern">AI-Powered</span>
+            <span class="badge badge-modern badge-success-modern">Real-time</span>
+          </div>
+          <a href="/resume" class="btn btn-primary-modern btn-modern mt-3 w-100">
+            <i class="fas fa-arrow-right me-2"></i>Get Started
+          </a>
+        </div>
+      </div>
+
+      <!-- Job Recommendations -->
+      <div class="card-modern feature-card" onclick="window.location.href='/jobs'">
+        <div class="card-body text-center">
+          <div class="feature-icon mx-auto" style="background: linear-gradient(135deg, #10b981, #059669);">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h5 class="card-title mb-3">Job Recommendations</h5>
+          <p class="text-muted mb-4">
+            Get curated IT/software roles categorized by suitability with transparent reasoning and match scores.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge badge-modern badge-primary-modern">Smart Matching</span>
+            <span class="badge badge-modern badge-info-modern">Personalized</span>
+          </div>
+          <a href="/jobs" class="btn btn-success-modern btn-modern mt-3 w-100">
+            <i class="fas fa-arrow-right me-2"></i>Get Recommendations
+          </a>
+        </div>
+      </div>
+
+      <!-- Job Listings -->
+      <div class="card-modern feature-card" onclick="window.location.href='/jobs'">
+        <div class="card-body text-center">
+          <div class="feature-icon mx-auto" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h5 class="card-title mb-3">Job Listings</h5>
+          <p class="text-muted mb-4">
+            Explore up-to-date openings from 11+ reputable sources with advanced search and filters.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge badge-modern badge-primary-modern">11 Portals</span>
+            <span class="badge badge-modern badge-success-modern">Verified Links</span>
+          </div>
+          <a href="/jobs" class="btn btn-outline-modern btn-modern mt-3 w-100">
+            <i class="fas fa-arrow-right me-2"></i>View Jobs
+          </a>
+        </div>
+      </div>
+
+      <!-- Application Tracking -->
+      <div class="card-modern feature-card" onclick="window.location.href='/tracking'">
+        <div class="card-body text-center">
+          <div class="feature-icon mx-auto" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h5 class="card-title mb-3">Application Tracking & Export</h5>
+          <p class="text-muted mb-4">
+            Track statuses, add notes, estimate interview likelihood, and export to Excel in one click with advanced
+            analytics.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge badge-modern badge-primary-modern">Analytics</span>
+            <span class="badge badge-modern badge-warning-modern">Export</span>
+          </div>
+          <a href="/tracking" class="btn btn-outline-modern btn-modern mt-3 w-100">
+            <i class="fas fa-arrow-right me-2"></i>Open Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity / Quick Actions -->
+    <div class="row g-4 mt-2">
+      <div class="col-md-6">
+        <div class="card-modern">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-bolt me-2"></i>Quick Actions
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="/resume" class="btn btn-primary-modern btn-modern">
+                <i class="fas fa-file-upload me-2"></i>Upload & Optimize Resume
+              </a>
+              <a href="/jobs" class="btn btn-outline-modern btn-modern">
+                <i class="fas fa-search me-2"></i>Search Jobs by Skills
+              </a>
+              <a href="/tracking" class="btn btn-outline-modern btn-modern">
+                <i class="fas fa-plus-circle me-2"></i>Add New Application
+              </a>
+              <a href="/export/jobs/csv" class="btn btn-outline-modern btn-modern">
+                <i class="fas fa-download me-2"></i>Export Job Listings
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card-modern">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-info-circle me-2"></i>Platform Features
+            </h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>11 Job Portals:</strong> Indeed, LinkedIn, Naukri, Glassdoor, and more
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>AI-Powered:</strong> ChatGPT & Perplexity AI integration
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Real-time Updates:</strong> Live job listings and notifications
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Advanced Filters:</strong> Search by skills, location, experience
+              </li>
+              <li class="mb-0">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Link Verification:</strong> All application links verified
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate stats on load
+      animateStats();
+
+      // Load real stats (you can fetch from API)
+      loadStats();
+    });
+
+    function animateStats() {
+      const stats = document.querySelectorAll('.stats-value');
+      stats.forEach(stat => {
+        const target = parseInt(stat.textContent) || 0;
+        if (target > 0) {
+          animateValue(stat, 0, target, 1000);
+        }
+      });
+    }
+
+    function animateValue(element, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value + (element.textContent.includes('%') ? '%' : '');
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function loadStats() {
+      // Fetch stats from API or use default values
+      // This is a placeholder - implement actual API calls
+      document.getElementById('totalJobs').textContent = '200+';
+      document.getElementById('optimizedResumes').textContent = '0';
+      document.getElementById('applications').textContent = '0';
+      document.getElementById('successRate').textContent = '0%';
+    }
+  </script>
+</body>
+
+</html>

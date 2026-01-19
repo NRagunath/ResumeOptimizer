@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Management - ResumeOpt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .company-card {
+            transition: transform 0.2s;
+            border-left: 4px solid #007bff;
+        }
+        .company-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .startup-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+        .verified-badge {
+            background: linear-gradient(45deg, #00d2d3, #54a0ff);
+        }
+        .platform-badge {
+            font-size: 0.75rem;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .industry-filter {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .industry-filter:hover {
+            background-color: #f8f9fa;
+        }
+        .loading-spinner {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-briefcase me-2"></i>ResumeOpt
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/jobs">Jobs</a>
+                <a class="nav-link" href="/resume">Resume</a>
+                <a class="nav-link active" href="/company-management">Companies</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1><i class="fas fa-building me-2"></i>Company Management</h1>
+                <p class="text-muted">Manage 500+ companies focused on IT/Software and fresher jobs with official career pages</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="btn-group me-2" role="group">
+                    <button class="btn btn-success" onclick="discoverAllCompanies()">
+                        <i class="fas fa-search me-1"></i>Discover All (500+)
+                    </button>
+                    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="discoverFresherCompanies()">
+                            <i class="fas fa-graduation-cap me-1"></i>Fresher-Friendly Companies
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" onclick="discoverITSoftwareCompanies()">
+                            <i class="fas fa-code me-1"></i>IT/Software Companies
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="scrapeAllJobs()">
+                            <i class="fas fa-download me-1"></i>Scrape All Jobs
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" onclick="scrapeFresherITJobs()">
+                            <i class="fas fa-user-graduate me-1"></i>Scrape Fresher IT Jobs
+                        </a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-outline-primary" onclick="refreshStats()">
+                    <i class="fas fa-sync-alt me-1"></i>Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4" id="statsContainer">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <h3 id="totalCompanies">-</h3>
+                        <p class="mb-0">Total Companies</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <h3 id="activeCompanies">-</h3>
+                        <p class="mb-0">Active Companies</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body text-center">
+                        <h3 id="startupCompanies">-</h3>
+                        <p class="mb-0">Startups</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <h3 id="verifiedCompanies">-</h3>
+                        <p class="mb-0">Verified</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Filters</h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-select" id="industryFilter" onchange="filterCompanies()">
+                                    <option value="">All Industries</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="platformFilter" onchange="filterCompanies()">
+                                    <option value="">All Platforms</option>
+                                    <option value="LEVER">Lever</option>
+                                    <option value="GREENHOUSE">Greenhouse</option>
+                                    <option value="WORKABLE">Workable</option>
+                                    <option value="SMARTRECRUITERS">SmartRecruiters</option>
+                                    <option value="BAMBOOHR">BambooHR</option>
+                                    <option value="CUSTOM">Custom</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="typeFilter" onchange="filterCompanies()">
+                                    <option value="">All Types</option>
+                                    <option value="startup">Startups Only</option>
+                                    <option value="enterprise">Enterprise Only</option>
+                                    <option value="fresher-friendly">Fresher-Friendly</option>
+                                    <option value="it-software">IT/Software</option>
+                                    <option value="high-volume">High-Volume Hiring</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="statusFilter" onchange="filterCompanies()">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active Only</option>
+                                    <option value="verified">Verified Only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="text-center loading-spinner" id="loadingSpinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading companies...</p>
+        </div>
+
+        <!-- Companies Grid -->
+        <div class="row" id="companiesContainer">
+            <!-- Companies will be loaded here -->
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Companies pagination" class="mt-4">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- Pagination will be generated here -->
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Company Details Modal -->
+    <div class="modal fade" id="companyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="companyModalTitle">Company Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="companyModalBody">
+                    <!-- Company details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateCompanyBtn">Update Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let allCompanies = [];
+        let filteredCompanies = [];
+        let currentPage = 1;
+        const companiesPerPage = 12;
+
+        // Load initial data
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadCompanies();
+        });
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/companies/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('totalCompanies').textContent = data.totalCompanies;
+                    document.getElementById('activeCompanies').textContent = data.activeCompanies;
+                    document.getElementById('startupCompanies').textContent = data.startupCompanies;
+                    document.getElementById('verifiedCompanies').textContent = data.verifiedCompanies;
+                    
+                    // Populate industry filter
+                    const industryFilter = document.getElementById('industryFilter');
+                    Object.keys(data.industryDistribution).forEach(industry => {
+                        const option = document.createElement('option');
+                        option.value = industry;
+                        option.textContent = `${industry} (${data.industryDistribution[industry]})`;
+                        industryFilter.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadCompanies() {
+            showLoading(true);
+            try {
+                const response = await fetch('/api/companies/list');
+                const data = await response.json();
+                
+                if (data.success) {
+                    allCompanies = data.companies;
+                    filteredCompanies = [...allCompanies];
+                    displayCompanies();
+                }
+            } catch (error) {
+                console.error('Error loading companies:', error);
+                showError('Failed to load companies');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayCompanies() {
+            const container = document.getElementById('companiesContainer');
+            const startIndex = (currentPage - 1) * companiesPerPage;
+            const endIndex = startIndex + companiesPerPage;
+            const pageCompanies = filteredCompanies.slice(startIndex, endIndex);
+            
+            container.innerHTML = '';
+            
+            pageCompanies.forEach(company => {
+                const companyCard = createCompanyCard(company);
+                container.appendChild(companyCard);
+            });
+            
+            updatePagination();
+        }
+
+        function createCompanyCard(company) {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 mb-4';
+            
+            const platformBadge = getPlatformBadge(company.platform);
+            const statusBadges = getStatusBadges(company);
+            
+            col.innerHTML = `
+                <div class="card company-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="card-title mb-0">${company.name}</h6>
+                            ${platformBadge}
+                        </div>
+                        <p class="text-muted small mb-2">${company.industry || 'Not specified'}</p>
+                        <div class="mb-3">
+                            ${statusBadges}
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                ${company.jobCount || 0} jobs
+                            </small>
+                            <div>
+                                <a href="${company.careerPageUrl}" target="_blank" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <button class="btn btn-sm btn-primary" onclick="showCompanyDetails(${company.id})">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        function getPlatformBadge(platform) {
+            const colors = {
+                'LEVER': 'primary',
+                'GREENHOUSE': 'success',
+                'WORKABLE': 'info',
+                'SMARTRECRUITERS': 'warning',
+                'BAMBOOHR': 'secondary',
+                'CUSTOM': 'dark'
+            };
+            
+            const color = colors[platform] || 'secondary';
+            return `<span class="badge bg-${color} platform-badge">${platform}</span>`;
+        }
+
+        function getStatusBadges(company) {
+            let badges = '';
+            
+            if (company.isActive) {
+                badges += '<span class="badge bg-success me-1">Active</span>';
+            }
+            
+            if (company.isStartup) {
+                badges += '<span class="badge startup-badge me-1">Startup</span>';
+            }
+            
+            if (company.isVerified) {
+                badges += '<span class="badge verified-badge me-1">Verified</span>';
+            }
+            
+            if (company.isFresherFriendly) {
+                badges += '<span class="badge bg-info me-1">Fresher-Friendly</span>';
+            }
+            
+            if (company.isITSoftware) {
+                badges += '<span class="badge bg-primary me-1">IT/Software</span>';
+            }
+            
+            if (company.isHighVolumeHiring) {
+                badges += '<span class="badge bg-warning me-1">High-Volume</span>';
+            }
+            
+            return badges;
+        }
+
+        function filterCompanies() {
+            const industryFilter = document.getElementById('industryFilter').value;
+            const platformFilter = document.getElementById('platformFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            filteredCompanies = allCompanies.filter(company => {
+                if (industryFilter && company.industry !== industryFilter) return false;
+                if (platformFilter && company.platform !== platformFilter) return false;
+                if (typeFilter === 'startup' && !company.isStartup) return false;
+                if (typeFilter === 'enterprise' && company.isStartup) return false;
+                if (typeFilter === 'fresher-friendly' && !company.isFresherFriendly) return false;
+                if (typeFilter === 'it-software' && !company.isITSoftware) return false;
+                if (typeFilter === 'high-volume' && !company.isHighVolumeHiring) return false;
+                if (statusFilter === 'active' && !company.isActive) return false;
+                if (statusFilter === 'verified' && !company.isVerified) return false;
+                
+                return true;
+            });
+            
+            currentPage = 1;
+            displayCompanies();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            pagination.innerHTML = '';
+            
+            // Previous button
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+            pagination.appendChild(prevLi);
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    const li = document.createElement('li');
+                    li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                    li.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
+                    pagination.appendChild(li);
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    const li = document.createElement('li');
+                    li.className = 'page-item disabled';
+                    li.innerHTML = '<span class="page-link">...</span>';
+                    pagination.appendChild(li);
+                }
+            }
+            
+            // Next button
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+            pagination.appendChild(nextLi);
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                displayCompanies();
+            }
+        }
+
+        async function discoverAllCompanies() {
+            if (confirm('This will discover all 500+ companies focused on IT/Software and fresher jobs. This may take a few minutes. Continue?')) {
+                showLoading(true);
+                try {
+                    const response = await fetch('/api/companies/discover-all', {
+                        method: 'POST'
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showSuccess(`Successfully discovered ${data.companiesDiscovered} companies!`);
+                        loadStats();
+                        loadCompanies();
+                    } else {
+                        showError(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error discovering companies:', error);
+                    showError('Failed to discover companies');
+                } finally {
+                    showLoading(false);
+                }
+            }
+        }
+
+        async function discoverFresherCompanies() {
+            showLoading(true);
+            try {
+                const response = await fetch('/api/companies/discover-fresher-companies', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`Successfully discovered ${data.companiesDiscovered} fresher-friendly companies!`);
+                    loadStats();
+                    loadCompanies();
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                console.error('Error discovering fresher companies:', error);
+                showError('Failed to discover fresher companies');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function discoverITSoftwareCompanies() {
+            showLoading(true);
+            try {
+                const response = await fetch('/api/companies/discover-it-software-companies', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`Successfully discovered ${data.companiesDiscovered} IT/Software companies!`);
+                    loadStats();
+                    loadCompanies();
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                console.error('Error discovering IT/Software companies:', error);
+                showError('Failed to discover IT/Software companies');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function scrapeAllJobs() {
+            if (confirm('This will scrape jobs from all active companies. This may take several minutes. Continue?')) {
+                showLoading(true);
+                try {
+                    const response = await fetch('/api/companies/scrape-all-jobs', {
+                        method: 'POST'
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showSuccess(`Successfully scraped ${data.totalJobs} jobs from all companies!`);
+                        loadStats();
+                    } else {
+                        showError(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error scraping jobs:', error);
+                    showError('Failed to scrape jobs');
+                } finally {
+                    showLoading(false);
+                }
+            }
+        }
+
+        async function scrapeFresherITJobs() {
+            showLoading(true);
+            try {
+                const response = await fetch('/api/companies/scrape-fresher-it-jobs', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(`Successfully scraped ${data.totalJobs} fresher-friendly IT jobs!`);
+                    loadStats();
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                console.error('Error scraping fresher IT jobs:', error);
+                showError('Failed to scrape fresher IT jobs');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function showCompanyDetails(companyId) {
+            const company = allCompanies.find(c => c.id === companyId);
+            if (!company) return;
+            
+            document.getElementById('companyModalTitle').textContent = company.name;
+            document.getElementById('companyModalBody').innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Industry:</strong> ${company.industry || 'Not specified'}<br>
+                        <strong>Platform:</strong> ${company.platform}<br>
+                        <strong>Type:</strong> ${company.isStartup ? 'Startup' : 'Enterprise'}<br>
+                        <strong>Status:</strong> ${company.isActive ? 'Active' : 'Inactive'}<br>
+                        <strong>Verified:</strong> ${company.isVerified ? 'Yes' : 'No'}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Jobs Found:</strong> ${company.jobCount || 0}<br>
+                        <strong>Created:</strong> ${new Date(company.createdAt).toLocaleDateString()}<br>
+                        <strong>Last Scraped:</strong> ${company.lastScraped ? new Date(company.lastScraped).toLocaleDateString() : 'Never'}<br>
+                        <strong>Career Page:</strong> <a href="${company.careerPageUrl}" target="_blank">Visit</a>
+                    </div>
+                </div>
+            `;
+            
+            const modal = new bootstrap.Modal(document.getElementById('companyModal'));
+            modal.show();
+        }
+
+        function refreshStats() {
+            loadStats();
+            loadCompanies();
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
+        }
+
+        function showSuccess(message) {
+            // You can implement a toast notification here
+            alert(message);
+        }
+
+        function showError(message) {
+            // You can implement a toast notification here
+            alert('Error: ' + message);
+        }
+    </script>
+</body>
+</html>

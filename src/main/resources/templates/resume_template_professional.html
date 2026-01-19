@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume - Professional Template</title>
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 28px;
+      color: #111827;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .contact {
+      font-size: 11px;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #9ca3af;
+      padding-bottom: 3px;
+    }
+    .summary {
+      margin-bottom: 6px;
+    }
+    .item {
+      margin-bottom: 6px;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .item-sub {
+      font-size: 11px;
+      color: #4b5563;
+      margin-bottom: 2px;
+    }
+    ul {
+      padding-left: 20px;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+    li {
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="name" th:text="${structuredResume.header.fullName}">Full Name</div>
+    <div class="contact">
+      <span th:text="${structuredResume.header.email}" th:if="${structuredResume.header.email}">email@example.com</span>
+      <span th:if="${structuredResume.header.email and structuredResume.header.phone}"> | </span>
+      <span th:text="${structuredResume.header.phone}" th:if="${structuredResume.header.phone}">+1 555-555-5555</span>
+      <span th:if="${(structuredResume.header.email or structuredResume.header.phone) and structuredResume.header.location}"> | </span>
+      <span th:text="${structuredResume.header.location}" th:if="${structuredResume.header.location}">City, Country</span>
+      <span th:if="${structuredResume.header.linkedin}"> | </span>
+      <span th:text="${structuredResume.header.linkedin}" th:if="${structuredResume.header.linkedin}">linkedin.com/in/example</span>
+    </div>
+  </div>
+
+  <div th:if="${structuredResume.summary}">
+    <div class="section-title">Professional Summary</div>
+    <div class="summary" th:text="${structuredResume.summary}"></div>
+  </div>
+
+  <div th:if="${structuredResume.skills}">
+    <div class="section-title">Skills</div>
+    <div th:each="group : ${structuredResume.skills}">
+      <div class="item">
+        <span class="item-sub" th:text="${group.groupName}">Skills</span>
+        <div th:text="${#strings.listJoin(group.skills, ', ')}">Java, Python</div>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${structuredResume.experience}">
+    <div class="section-title">Professional Experience</div>
+    <div th:each="exp : ${structuredResume.experience}" class="item">
+      <div class="item-header">
+        <div th:text="${exp.title}">Job Title</div>
+        <div th:text="${exp.company}">Company</div>
+      </div>
+      <div class="item-sub" th:text="${exp.location}">Location</div>
+      <ul th:if="${exp.bullets}">
+        <li th:each="b : ${exp.bullets}" th:text="${b}">Bullet</li>
+      </ul>
+    </div>
+  </div>
+
+  <div th:if="${structuredResume.projects}">
+    <div class="section-title">Projects</div>
+    <div th:each="p : ${structuredResume.projects}" class="item">
+      <div class="item-header">
+        <div th:text="${p.name}">Project Name</div>
+        <div th:text="${p.role}">Role</div>
+      </div>
+      <ul th:if="${p.bullets}">
+        <li th:each="b : ${p.bullets}" th:text="${b}">Detail</li>
+      </ul>
+    </div>
+  </div>
+
+  <div th:if="${structuredResume.education}">
+    <div class="section-title">Education</div>
+    <div th:each="e : ${structuredResume.education}" class="item">
+      <div class="item-header">
+        <div th:text="${e.institution}">University</div>
+        <div th:text="${e.dates}">Dates</div>
+      </div>
+      <div class="item-sub" th:text="${e.degree}">Degree</div>
+      <div th:text="${e.fieldOfStudy}">Field of study</div>
+    </div>
+  </div>
+
+  <div th:if="${structuredResume.achievements}">
+    <div class="section-title">Achievements &amp; Certifications</div>
+    <ul>
+      <li th:each="a : ${structuredResume.achievements}" th:text="${a.title}">Achievement</li>
+    </ul>
+  </div>
+</body>
+</html>
+
+

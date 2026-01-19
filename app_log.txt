@@ -1,0 +1,513 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.resumeopt:resumeopt >-----------------------
+[INFO] Building ResumeOpt 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.4:run (default-cli) > test-compile @ resumeopt >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ resumeopt ---
+[INFO] Copying 28 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ resumeopt ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 119 source files with javac [debug release 17] to target\classes
+[INFO] /D:/resumeoptmizer/src/main/java/com/resumeopt/service/AdvancedTemplatePreservationService.java: Some input files use or override a deprecated API.
+[INFO] /D:/resumeoptmizer/src/main/java/com/resumeopt/service/AdvancedTemplatePreservationService.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ resumeopt ---
+[INFO] skip non existing resourceDirectory D:\resumeoptmizer\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ resumeopt ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 7 source files with javac [debug release 17] to target\test-classes
+[INFO] 
+[INFO] <<< spring-boot:3.3.4:run (default-cli) < test-compile @ resumeopt <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.4:run (default-cli) @ resumeopt ---
+[INFO] Attaching agents: []
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-01-07T15:25:13.514+05:30  INFO 12328 --- [ResumeOpt] [           main] com.resumeopt.ResumeOptApplication       : Starting ResumeOptApplication using Java 21.0.4 with PID 12328 (D:\resumeoptmizer\target\classes started by Good Day in D:\resumeoptmizer)
+2026-01-07T15:25:13.519+05:30  INFO 12328 --- [ResumeOpt] [           main] com.resumeopt.ResumeOptApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-01-07T15:25:21.456+05:30  INFO 12328 --- [ResumeOpt] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-07T15:25:21.682+05:30  INFO 12328 --- [ResumeOpt] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 208 ms. Found 6 JPA repository interfaces.
+2026-01-07T15:25:24.070+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-07T15:25:24.118+05:30  INFO 12328 --- [ResumeOpt] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-07T15:25:24.118+05:30  INFO 12328 --- [ResumeOpt] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-01-07T15:25:24.573+05:30  INFO 12328 --- [ResumeOpt] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-07T15:25:24.574+05:30  INFO 12328 --- [ResumeOpt] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10909 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-01-07T15:25:24.961+05:30  INFO 12328 --- [ResumeOpt] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-07T15:25:26.839+05:30  INFO 12328 --- [ResumeOpt] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/resumeopt user=SA
+2026-01-07T15:25:26.843+05:30  INFO 12328 --- [ResumeOpt] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-07T15:25:26.889+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:file:./data/resumeopt'
+2026-01-07T15:25:27.548+05:30  INFO 12328 --- [ResumeOpt] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-07T15:25:27.704+05:30  INFO 12328 --- [ResumeOpt] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-01-07T15:25:27.794+05:30  INFO 12328 --- [ResumeOpt] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-07T15:25:28.643+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-07T15:25:31.739+05:30  INFO 12328 --- [ResumeOpt] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-07T15:25:32.010+05:30  INFO 12328 --- [ResumeOpt] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-07T15:25:34.609+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-07T15:25:39.634+05:30  WARN 12328 --- [ResumeOpt] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-07T15:25:39.933+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-01-07T15:25:41.923+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-07T15:25:42.270+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-01-07T15:25:42.274+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-01-07T15:25:42.275+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@232b4552]]
+2026-01-07T15:25:42.276+05:30  INFO 12328 --- [ResumeOpt] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-01-07T15:25:42.328+05:30  INFO 12328 --- [ResumeOpt] [           main] com.resumeopt.ResumeOptApplication       : Started ResumeOptApplication in 30.47 seconds (process running for 32.431)
+Refreshing job cache...
+Clearing portal scrape cache
+========================================
+STARTING JOB SCRAPING FROM ALL PORTALS
+========================================
+Total portals configured: 11
+Deep scraping enabled: true
+Date filtering enabled: true
+Max days old: 7
+========================================
+
+? Scraping from Cutshort...
+? Scraping from Freshersworld...
+? Scraping from Glassdoor...
+Initializing job cache on startup...
+Refreshing job cache...
+Clearing portal scrape cache
+========================================
+STARTING JOB SCRAPING FROM ALL PORTALS
+========================================
+Total portals configured: 11
+Deep scraping enabled: true
+Date filtering enabled: true
+Max days old: 7
+========================================
+
+Starting enhanced Freshersworld scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+[2026-01-07T15:25:46.434587600] Scraping Freshersworld page 1: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india
+[2026-01-07T15:25:48.407061800] Starting enhanced Cutshort scraping with advanced features...
+[2026-01-07T15:25:48.407569200] Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+Scraping Cutshort page 1: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1
+Jsoup found no jobs, switching to Selenium for Cutshort page 1
+[2026-01-07T15:25:49.277264] Initializing Selenium WebDriver...
+[2026-01-07T15:25:52.466590900] Starting enhanced Glassdoor scraping with advanced features...
+[2026-01-07T15:25:52.468591400] Configuration: Query='software engineer entry level fresher', Location='India', MaxPages=2, DateFilter=7 days
+[2026-01-07T15:25:52.472580700] Scraping Glassdoor page 1: https://www.glassdoor.co.in/Job/jobs.htm?sc.keyword=software+engineer+entry+level+fresher&locT=C&locId=-1&locKeyword=India&fromAge=7&jt=fulltime&empType=FULLTIME&seniorityType=ENTRYLEVEL&p=1
+Page 1 completed: 0 jobs found
+2026-01-07T15:25:53.149+05:30  INFO 12328 --- [ResumeOpt] [onPool-worker-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 143.0.7499.192 (resolved driver for Chrome 143)
+Rate limited for https://www.glassdoor.co.in/Job/jobs.htm?sc.keyword=software+engineer+entry+level+fresher&locT=C&locId=-1&locKeyword=India&fromAge=7&jt=fulltime&empType=FULLTIME&seniorityType=ENTRYLEVEL&p=1, waiting 3000ms before retry 2
+2026-01-07T15:25:53.256+05:30  INFO 12328 --- [ResumeOpt] [onPool-worker-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\feros\.cache\selenium\chromedriver\win64\143.0.7499.192\chromedriver.exe
+[2026-01-07T15:25:53.257846200] ChromeDriver setup successful
+[2026-01-07T15:25:57.073998100] Scraping Freshersworld page 2: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india?offset=20&page=2
+[2026-01-07T15:25:58.569487700] Page 1 completed: 26 jobs found
+Page 2 completed: 0 jobs found
+[2026-01-07T15:26:06.360935400] Scraping Freshersworld page 3: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india?offset=40&page=3
+[2026-01-07T15:26:08.583895700] Scraping Glassdoor page 2: https://www.glassdoor.co.in/Job/jobs.htm?sc.keyword=software+engineer+entry+level+fresher&locT=C&locId=-1&locKeyword=India&fromAge=7&jt=fulltime&empType=FULLTIME&seniorityType=ENTRYLEVEL&p=2
+Page 3 completed: 0 jobs found
+Initial scraping completed: 0 jobs found
+Enhanced Freshersworld scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Freshersworld: Success (0 jobs)
+??  No jobs found from Freshersworld (took 26949ms)
+? Scraping from Hirist...
+[2026-01-07T15:26:11.007289800] Page 2 completed: 26 jobs found
+[2026-01-07T15:26:11.007289800] Initial scraping completed: 52 jobs found
+Applying advanced processing pipeline...
+Removed 26 duplicate jobs
+After date filtering: 26 fresh jobs (within past week)
+[2026-01-07T15:26:16.361394100] Starting enhanced Hirist scraping with advanced features...
+[2026-01-07T15:26:16.361394100] Configuration: Query='software engineer fresher', Location='India', MaxPages=3, ExperienceMax=1 years
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=104&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_182d89cb&cb=1767779758350&jobListingId=1009985774018&jrtk=5-yul1-0-1jebu4s2a21jv00a-773863119dd56f59 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=104&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_182d89cb&cb=1767779758350&jobListingId=1009985774018&jrtk=5-yul1-0-1jebu4s2a21jv00a-773863119dd56f59]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=102&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_58296ee6&cb=1767779758350&jobListingId=1008550100346&jrtk=5-yul1-0-1jebu4s2a21jv00a-7a577c18954a7b09 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=102&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_58296ee6&cb=1767779758350&jobListingId=1008550100346&jrtk=5-yul1-0-1jebu4s2a21jv00a-7a577c18954a7b09]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=101&ao=1110586&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_3113074b&cb=1767779758350&jobListingId=1009989875463&cpc=9908D8D4413DBB8A&jrtk=5-yul1-0-1jebu4s2a21jv00a-8c6925f59fcea11c---6NYlbfkN0AHI-DsN3s26rCT7s7H_g6vMejkdf_sdhr75KqflCYBtBXpxRP90Ov7xaAgpSTnBBYdyYrU1LoTsZPV8V_9iqHAxaOusDQg3ql44_35mOa4XgHsVVDjqxjFP1exVLlWfN1M1Q_IfygZ-EvAt93OF4aMlMKAJIdgs1HG3l8uXcG51PZkHJx_sWlM7Y1adCqEdEb5xGQuVWjAHFjKVg83u81KbZ6-WSKmzWLp9fD7KlSyp6qw45_4Bx_Va9RkZgUzY2YFucMGIUfWkgAFlL_RUTdMcImevxLO3JH1-9DsPLtrSiNTzJA2rd5GeHPUAridrgD_Snb-LrCrBpd7JN7hFj9Mlz3yhioEqh9VbpNic_M2TMuyjqfNPlfixhWtsd4X_zz2u-sN0ZJMtipxbYYYKD0SvAc358BagCe0vP8Bssed936gPtqXfEDeFr7kEoBbduV4XGG-pXky42cLaFGEexItdF0Aa2DAuLu3TsFXu5hb-Ag3nXen-xWqk-MAQ6qeWkn5dMSSzXeIytN2-_gz6fN8j5nrjZo7Hm7Aj-RXkqnBCqUqQueeeY91xO2uvod4d-gvbiJ2HwBju6pxyvhO3OiWeJtr3iv5t6DwgFV0b1OrPCQ4CTNiie_Dh_XU3SH_v859HMdPykZxY_12WdFOuYR3UpA2k4A6iHSNjucFUa2qVMTCjmWxysXd3OuGwtilZ2KhhgB3dxu7pXkqyyH4R-MBb5yU7o8d0zOR5mRoyTBJx3_3KqgLBnCW882i2_j6mzA06sWFAMrVx-gVWYRmna9RjfR4KnxkyrePBlg16KWYGw%3D%3D - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=101&ao=1110586&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_3113074b&cb=1767779758350&jobListingId=1009989875463&cpc=9908D8D4413DBB8A&jrtk=5-yul1-0-1jebu4s2a21jv00a-8c6925f59fcea11c---6NYlbfkN0AHI-DsN3s26rCT7s7H_g6vMejkdf_sdhr75KqflCYBtBXpxRP90Ov7xaAgpSTnBBYdyYrU1LoTsZPV8V_9iqHAxaOusDQg3ql44_35mOa4XgHsVVDjqxjFP1exVLlWfN1M1Q_IfygZ-EvAt93OF4aMlMKAJIdgs1HG3l8uXcG51PZkHJx_sWlM7Y1adCqEdEb5xGQuVWjAHFjKVg83u81KbZ6-WSKmzWLp9fD7KlSyp6qw45_4Bx_Va9RkZgUzY2YFucMGIUfWkgAFlL_RUTdMcImevxLO3JH1-9DsPLtrSiNTzJA2rd5GeHPUAridrgD_Snb-LrCrBpd7JN7hFj9Mlz3yhioEqh9VbpNic_M2TMuyjqfNPlfixhWtsd4X_zz2u-sN0ZJMtipxbYYYKD0SvAc358BagCe0vP8Bssed936gPtqXfEDeFr7kEoBbduV4XGG-pXky42cLaFGEexItdF0Aa2DAuLu3TsFXu5hb-Ag3nXen-xWqk-MAQ6qeWkn5dMSSzXeIytN2-_gz6fN8j5nrjZo7Hm7Aj-RXkqnBCqUqQueeeY91xO2uvod4d-gvbiJ2HwBju6pxyvhO3OiWeJtr3iv5t6DwgFV0b1OrPCQ4CTNiie_Dh_XU3SH_v859HMdPykZxY_12WdFOuYR3UpA2k4A6iHSNjucFUa2qVMTCjmWxysXd3OuGwtilZ2KhhgB3dxu7pXkqyyH4R-MBb5yU7o8d0zOR5mRoyTBJx3_3KqgLBnCW882i2_j6mzA06sWFAMrVx-gVWYRmna9RjfR4KnxkyrePBlg16KWYGw%3D%3D]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=105&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_44e733ad&cb=1767779758351&jobListingId=1009988489910&jrtk=5-yul1-0-1jebu4s2a21jv00a-946cde54195a539d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=105&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_44e733ad&cb=1767779758351&jobListingId=1009988489910&jrtk=5-yul1-0-1jebu4s2a21jv00a-946cde54195a539d]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=103&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7614b492&cb=1767779758351&jobListingId=1009969681205&jrtk=5-yul1-0-1jebu4s2a21jv00a-aa697d3ac5a8e543 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=103&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7614b492&cb=1767779758351&jobListingId=1009969681205&jrtk=5-yul1-0-1jebu4s2a21jv00a-aa697d3ac5a8e543]
+Hirist API scrape failed: HTTP error fetching URL. Status=404, URL=[https://www.hirist.tech:443/api/v1/job/list?query=software+engineer+fresher&loc=India&page=1]
+Scraping Hirist page 1: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=107&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e85b44ab&cb=1767779758351&jobListingId=1009982738159&jrtk=5-yul1-0-1jebu4s2a21jv00a-6c5ad8a881fddad2 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=107&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e85b44ab&cb=1767779758351&jobListingId=1009982738159&jrtk=5-yul1-0-1jebu4s2a21jv00a-6c5ad8a881fddad2]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=106&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b13875db&cb=1767779758351&jobListingId=1009968848236&jrtk=5-yul1-0-1jebu4s2a21jv00a-d00007822cbde372 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=106&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b13875db&cb=1767779758351&jobListingId=1009968848236&jrtk=5-yul1-0-1jebu4s2a21jv00a-d00007822cbde372]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=109&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_531ee281&cb=1767779758351&jobListingId=1009980926434&jrtk=5-yul1-0-1jebu4s2a21jv00a-3807880d0fcde9e2 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=109&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_531ee281&cb=1767779758351&jobListingId=1009980926434&jrtk=5-yul1-0-1jebu4s2a21jv00a-3807880d0fcde9e2]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=110&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_11fe053e&cb=1767779758351&jobListingId=1009977758191&jrtk=5-yul1-0-1jebu4s2a21jv00a-a53e03c68b93e38c - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=110&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_11fe053e&cb=1767779758351&jobListingId=1009977758191&jrtk=5-yul1-0-1jebu4s2a21jv00a-a53e03c68b93e38c]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=108&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_00bc203a&cb=1767779758351&jobListingId=1009982739689&jrtk=5-yul1-0-1jebu4s2a21jv00a-e0889290d494074d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=108&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_00bc203a&cb=1767779758351&jobListingId=1009982739689&jrtk=5-yul1-0-1jebu4s2a21jv00a-e0889290d494074d]
+Scraping aggregation timed out or interrupted: null
+
+========================================
+   AGGREGATION SUMMARY
+========================================
+Freshersworld  : ? 0 jobs
+----------------------------------------
+Total raw jobs collected: 0
+After deduplication: 0
+Final date filter: 0 -> 0 jobs
+Clearing job listings cache
+Pre-warming 'all' jobs cache...
+Starting all job aggregation...
+Added 14 jobs from reliable data source
+Returning 8 job listings from 11 job portals
+Job cache refreshed and warmed successfully
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=111&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_9ac4cb8a&cb=1767779758351&jobListingId=1009932740520&jrtk=5-yul1-0-1jebu4s2a21jv00a-1589958dd8f21807 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=111&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_9ac4cb8a&cb=1767779758351&jobListingId=1009932740520&jrtk=5-yul1-0-1jebu4s2a21jv00a-1589958dd8f21807]
+Scraping aggregation timed out or interrupted: null
+
+========================================
+   AGGREGATION SUMMARY
+========================================
+----------------------------------------
+Total raw jobs collected: 0
+After deduplication: 0
+Final date filter: 0 -> 0 jobs
+Clearing job listings cache
+Pre-warming 'all' jobs cache...
+Starting all job aggregation...
+Added 14 jobs from reliable data source
+Returning 8 job listings from 11 job portals
+Job cache refreshed and warmed successfully
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=114&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_bc12bfa0&cb=1767779758352&jobListingId=1009987137118&jrtk=5-yul1-0-1jebu4s2a21jv00a-bbaf97e121c33daf - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=114&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_bc12bfa0&cb=1767779758352&jobListingId=1009987137118&jrtk=5-yul1-0-1jebu4s2a21jv00a-bbaf97e121c33daf]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=113&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_b22635ec&cb=1767779758352&jobListingId=1008105557862&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ee5b55c81a45e76 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=113&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_b22635ec&cb=1767779758352&jobListingId=1008105557862&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ee5b55c81a45e76]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=112&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_8782ec1b&cb=1767779758351&jobListingId=1009502399240&jrtk=5-yul1-0-1jebu4s2a21jv00a-3e6426e39cf3017f - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=112&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_8782ec1b&cb=1767779758351&jobListingId=1009502399240&jrtk=5-yul1-0-1jebu4s2a21jv00a-3e6426e39cf3017f]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=115&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_36cde2f1&cb=1767779758353&jobListingId=1009956169922&jrtk=5-yul1-0-1jebu4s2a21jv00a-10b8e4ce36316a7d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=115&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_36cde2f1&cb=1767779758353&jobListingId=1009956169922&jrtk=5-yul1-0-1jebu4s2a21jv00a-10b8e4ce36316a7d]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=116&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_4af31de6&cb=1767779758352&jobListingId=1009960841704&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ed44f4130f5d822 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=116&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_4af31de6&cb=1767779758352&jobListingId=1009960841704&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ed44f4130f5d822]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=117&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_6519effa&cb=1767779758353&jobListingId=1009924653989&jrtk=5-yul1-0-1jebu4s2a21jv00a-c941be1b51add3e9 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=117&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_6519effa&cb=1767779758353&jobListingId=1009924653989&jrtk=5-yul1-0-1jebu4s2a21jv00a-c941be1b51add3e9]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=118&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_62b4c744&cb=1767779758352&jobListingId=1007771226687&jrtk=5-yul1-0-1jebu4s2a21jv00a-7d8f7ab32a9a57e5 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=118&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_62b4c744&cb=1767779758352&jobListingId=1007771226687&jrtk=5-yul1-0-1jebu4s2a21jv00a-7d8f7ab32a9a57e5]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=119&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_80ba90e8&cb=1767779758352&jobListingId=1009969269586&jrtk=5-yul1-0-1jebu4s2a21jv00a-c60ea9e5f640b433 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=119&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_80ba90e8&cb=1767779758352&jobListingId=1009969269586&jrtk=5-yul1-0-1jebu4s2a21jv00a-c60ea9e5f640b433]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=120&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b55d514d&cb=1767779758353&jobListingId=1009981528985&jrtk=5-yul1-0-1jebu4s2a21jv00a-08a437597ef157e3 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=120&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b55d514d&cb=1767779758353&jobListingId=1009981528985&jrtk=5-yul1-0-1jebu4s2a21jv00a-08a437597ef157e3]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=121&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7d07bfa1&cb=1767779758353&jobListingId=1009978111660&jrtk=5-yul1-0-1jebu4s2a21jv00a-3265084338ad4c7f - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=121&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7d07bfa1&cb=1767779758353&jobListingId=1009978111660&jrtk=5-yul1-0-1jebu4s2a21jv00a-3265084338ad4c7f]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=122&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_29d3cd87&cb=1767779758354&jobListingId=1009974771214&jrtk=5-yul1-0-1jebu4s2a21jv00a-c211b2e292fdb8b7 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=122&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_29d3cd87&cb=1767779758354&jobListingId=1009974771214&jrtk=5-yul1-0-1jebu4s2a21jv00a-c211b2e292fdb8b7]
+Standard scraping failed for Hirist. Switching to Selenium...
+[2026-01-07T15:26:40.555937500] Selenium fetching: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:26:40.555937500] Error fetching URL with Selenium: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:26:40.584256500] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:26:40.588245300] Attempting to restart WebDriver...
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=123&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_44391ac4&cb=1767779758354&jobListingId=1009976901492&jrtk=5-yul1-0-1jebu4s2a21jv00a-23a5a4b762f64158 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=123&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_44391ac4&cb=1767779758354&jobListingId=1009976901492&jrtk=5-yul1-0-1jebu4s2a21jv00a-23a5a4b762f64158]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=124&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_163af2ff&cb=1767779758354&jobListingId=1009559911480&jrtk=5-yul1-0-1jebu4s2a21jv00a-034408264eaa1daa - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=124&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_163af2ff&cb=1767779758354&jobListingId=1009559911480&jrtk=5-yul1-0-1jebu4s2a21jv00a-034408264eaa1daa]
+2026-01-07T15:26:42.132+05:30  INFO 12328 --- [ResumeOpt] [MessageBroker-4] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 4, completed tasks = 3]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=125&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_67871cd9&cb=1767779758354&jobListingId=1009978071119&jrtk=5-yul1-0-1jebu4s2a21jv00a-2aad9a02e5c9d913 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=125&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_67871cd9&cb=1767779758354&jobListingId=1009978071119&jrtk=5-yul1-0-1jebu4s2a21jv00a-2aad9a02e5c9d913]
+[2026-01-07T15:26:43.600355900] Selenium fetching: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:26:43.600355900] Error fetching URL with Selenium: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:26:43.600355900] Selenium fetch failed (attempt 2/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:26:43.600355900] Attempting to restart WebDriver...
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=126&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e96a0e50&cb=1767779758354&jobListingId=1009972166596&jrtk=5-yul1-0-1jebu4s2a21jv00a-c3ab7999113f935a - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=126&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e96a0e50&cb=1767779758354&jobListingId=1009972166596&jrtk=5-yul1-0-1jebu4s2a21jv00a-c3ab7999113f935a]
+Deep scraping completed. Enhanced 26 jobs out of 26
+After deep scraping: 26 enhanced jobs
+Link verification completed. 26 out of 26 jobs have valid links.
+After link verification: 26 jobs with verified links
+[2026-01-07T15:26:44.251575900] Enhanced Glassdoor scraping completed: 26 verified fresh jobs with working links
+[MONITOR] Glassdoor: Success (26 jobs)
+? Glassdoor returned 26 jobs (took 61860ms)
+? Scraping from Indeed...
+[2026-01-07T15:26:46.605411400] Selenium fetching: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:26:46.605411400] Error fetching URL with Selenium: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:26:46.605411400] Selenium fetch failed (attempt 3/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Failed to fetch URL with Selenium after 3 attempts: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:26:46.605411400] Initial scraping completed: 0 jobs found
+[2026-01-07T15:26:46.605411400] Enhanced Hirist scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Hirist: Success (0 jobs)
+??  No jobs found from Hirist (took 37261ms)
+? Scraping from Enhanced Internshala...
+Starting enhanced Internshala scraping with advanced features...
+Configuration: Query='software development fresher', Location='India', MaxPages=3
+[2026-01-07T15:26:50.614525100] Scraping Internshala page 1: https://internshala.com/jobs/software-development-fresher-jobs
+[2026-01-07T15:26:51.267742700] Starting enhanced Indeed scraping with advanced features...
+[2026-01-07T15:26:51.267742700] Configuration: Query='software engineer entry level fresher', Location='India', MaxPages=3, DateFilter=7 days
+[2026-01-07T15:26:51.269253800] Enhanced Indeed scraping page 1: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=0&fromage=7&explvl=ENTRY_LEVEL
+Rate limited for https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=0&fromage=7&explvl=ENTRY_LEVEL, waiting 3000ms before retry 2
+Page 1 completed: 0 jobs found
+Rate limited for https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=0&fromage=7&explvl=ENTRY_LEVEL, waiting 6000ms before retry 3
+[2026-01-07T15:26:55.821266100] Scraping Internshala page 2: https://internshala.com/jobs/software-development-fresher-jobs?page=2
+Page 2 completed: 0 jobs found
+[2026-01-07T15:27:02.750279200] Scraping Internshala page 3: https://internshala.com/jobs/software-development-fresher-jobs?page=3
+[2026-01-07T15:27:02.902792] Page 1 completed: 0 jobs found
+Page 3 completed: 0 jobs found
+Initial scraping completed: 0 jobs found
+Enhanced Internshala scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Enhanced Internshala (took 17337ms)
+??  Skipping disabled portal: Enhanced Jobsora
+??  Skipping disabled portal: LinkedIn
+? Scraping from Enhanced Naukri...
+[2026-01-07T15:27:09.917397900] Enhanced Indeed scraping page 2: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=10&fromage=7&explvl=ENTRY_LEVEL
+Rate limited for https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=10&fromage=7&explvl=ENTRY_LEVEL, waiting 3000ms before retry 2
+[2026-01-07T15:27:12.009873100] Enhanced Naukri scraping page 1: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:13.110049400] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:27:13.110049400] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:13.110049400] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:13.111046] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:13.111046] Attempting to restart WebDriver...
+[2026-01-07T15:27:15.567011300] Page 2 completed: 0 jobs found
+[2026-01-07T15:27:16.121871700] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:16.121871700] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:16.121871700] Selenium fetch failed (attempt 2/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:16.121871700] Enhanced Naukri scraping page 2: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:17.261828300] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:27:17.261828300] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:17.261828300] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:17.261828300] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:17.262829700] Enhanced Naukri scraping page 3: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:21.832316800] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:27:21.832316800] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:27:21.832316800] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:21.832316800] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:21.832316800] Enhanced Naukri scraper found 0 jobs
+??  No jobs found from Enhanced Naukri (took 17889ms)
+? Scraping from Enhanced Shine...
+[2026-01-07T15:27:22.578855500] Enhanced Indeed scraping page 3: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=20&fromage=7&explvl=ENTRY_LEVEL
+[2026-01-07T15:27:24.897588500] Page 3 completed: 0 jobs found
+[2026-01-07T15:27:24.897588500] Initial scraping completed: 0 jobs found
+[2026-01-07T15:27:24.897588500] Enhanced Indeed scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Indeed (took 40641ms)
+? Scraping from Enhanced Wellfound...
+Starting enhanced Shine scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3, ExperienceMax=1 years
+Scraping Shine page 1: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time
+Jsoup failed or blocked, switching to Selenium for Shine page 1
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 1 completed: 60 jobs found
+Scraping Shine page 2: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time&page=2
+Jsoup failed or blocked, switching to Selenium for Shine page 2
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 2 completed: 60 jobs found
+Starting enhanced Wellfound scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+Scraping Wellfound page 1: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true
+Rate limited for https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true, waiting 3000ms before retry 2
+Scraping Shine page 3: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time&page=3
+Jsoup failed or blocked, switching to Selenium for Shine page 3
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 3 completed: 60 jobs found
+Initial scraping completed: 180 jobs found
+[2026-01-07T15:27:37.814157300] Applying advanced processing pipeline...
+[2026-01-07T15:27:37.815154600] After date filtering: 180 fresh jobs (within past week)
+Jsoup failed or blocked, switching to Selenium for Wellfound page 1
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 1: Wellfound scraping failed with both Jsoup and Selenium
+Scraping Wellfound page 2: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true&page=2
+Rate limited for https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true&page=2, waiting 3000ms before retry 2
+Jsoup failed or blocked, switching to Selenium for Wellfound page 2
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 2: Wellfound scraping failed with both Jsoup and Selenium
+Scraping Wellfound page 3: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true&page=3
+Jsoup failed or blocked, switching to Selenium for Wellfound page 3
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 3: Wellfound scraping failed with both Jsoup and Selenium
+Initial scraping completed: 0 jobs found
+Enhanced Wellfound scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Enhanced Wellfound (took 20172ms)
+? Scraping from Cutshort...
+[2026-01-07T15:27:51.081679600] Starting enhanced Cutshort scraping with advanced features...
+[2026-01-07T15:27:51.081679600] Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+Scraping Cutshort page 1: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1
+Jsoup found no jobs, switching to Selenium for Cutshort page 1
+[2026-01-07T15:27:51.082186100] Selenium fetching: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1
+[2026-01-07T15:27:51.082186100] Error fetching URL with Selenium: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:51.083191600] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium also failed for Cutshort: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:51.083191600] Error scraping Cutshort page 1: Cutshort scraping failed with both Jsoup and Selenium
+Scraping Cutshort page 2: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=2
+Jsoup found no jobs, switching to Selenium for Cutshort page 2
+[2026-01-07T15:27:51.444662700] Selenium fetching: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=2
+[2026-01-07T15:27:51.444662700] Error fetching URL with Selenium: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=2 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:51.444662700] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium also failed for Cutshort: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:51.444662700] Error scraping Cutshort page 2: Cutshort scraping failed with both Jsoup and Selenium
+Scraping Cutshort page 3: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=3
+Jsoup found no jobs, switching to Selenium for Cutshort page 3
+[2026-01-07T15:27:56.558671100] Selenium fetching: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=3
+[2026-01-07T15:27:56.559178300] Error fetching URL with Selenium: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1&page=3 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:27:56.559178300] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium also failed for Cutshort: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:27:56.559178300] Error scraping Cutshort page 3: Cutshort scraping failed with both Jsoup and Selenium
+[2026-01-07T15:27:56.559178300] Initial scraping completed: 0 jobs found
+[2026-01-07T15:27:56.559178300] Enhanced Cutshort scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Cutshort: Success (0 jobs)
+??  No jobs found from Cutshort (took 11489ms)
+? Scraping from Freshersworld...
+Starting enhanced Freshersworld scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+[2026-01-07T15:28:00.570626200] Scraping Freshersworld page 1: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india
+Page 1 completed: 0 jobs found
+[2026-01-07T15:28:04.754375500] Scraping Freshersworld page 2: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india?offset=20&page=2
+Page 2 completed: 0 jobs found
+Deep scraping completed. Enhanced 9 jobs out of 30
+[2026-01-07T15:28:05.637254300] After deep scraping: 9 enhanced jobs
+Link verification completed. 9 out of 9 jobs have valid links.
+[2026-01-07T15:28:05.637254300] After link verification: 9 jobs with verified links
+Enhanced Shine scraping completed: 9 verified fresh jobs with working links
+? Enhanced Shine returned 9 jobs (took 43804ms)
+? Scraping from Glassdoor...
+[2026-01-07T15:28:08.948041600] Scraping Freshersworld page 3: https://www.freshersworld.com/jobs/jobsearch/software-engineer-fresher-jobs-in-india?offset=40&page=3
+Page 3 completed: 0 jobs found
+Initial scraping completed: 0 jobs found
+Enhanced Freshersworld scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Freshersworld: Success (0 jobs)
+??  No jobs found from Freshersworld (took 12412ms)
+? Scraping from Hirist...
+[2026-01-07T15:28:15.642049400] Starting enhanced Glassdoor scraping with advanced features...
+[2026-01-07T15:28:15.642049400] Configuration: Query='software engineer entry level fresher', Location='India', MaxPages=2, DateFilter=7 days
+[2026-01-07T15:28:15.642049400] Scraping Glassdoor page 1: https://www.glassdoor.co.in/Job/jobs.htm?sc.keyword=software+engineer+entry+level+fresher&locT=C&locId=-1&locKeyword=India&fromAge=7&jt=fulltime&empType=FULLTIME&seniorityType=ENTRYLEVEL&p=1
+[2026-01-07T15:28:15.673982600] Page 1 completed: 26 jobs found
+[2026-01-07T15:28:15.974029] Starting enhanced Hirist scraping with advanced features...
+[2026-01-07T15:28:15.974029] Configuration: Query='software engineer fresher', Location='India', MaxPages=3, ExperienceMax=1 years
+Hirist API scrape failed: HTTP error fetching URL. Status=404, URL=[https://www.hirist.tech:443/api/v1/job/list?query=software+engineer+fresher&loc=India&page=1]
+Scraping Hirist page 1: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:28:25.677371300] Scraping Glassdoor page 2: https://www.glassdoor.co.in/Job/jobs.htm?sc.keyword=software+engineer+entry+level+fresher&locT=C&locId=-1&locKeyword=India&fromAge=7&jt=fulltime&empType=FULLTIME&seniorityType=ENTRYLEVEL&p=2
+[2026-01-07T15:28:25.720034] Page 2 completed: 26 jobs found
+[2026-01-07T15:28:25.720034] Initial scraping completed: 52 jobs found
+Applying advanced processing pipeline...
+Removed 26 duplicate jobs
+After date filtering: 26 fresh jobs (within past week)
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=103&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7614b492&cb=1767779758351&jobListingId=1009969681205&jrtk=5-yul1-0-1jebu4s2a21jv00a-aa697d3ac5a8e543 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=103&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7614b492&cb=1767779758351&jobListingId=1009969681205&jrtk=5-yul1-0-1jebu4s2a21jv00a-aa697d3ac5a8e543]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=104&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_182d89cb&cb=1767779758350&jobListingId=1009985774018&jrtk=5-yul1-0-1jebu4s2a21jv00a-773863119dd56f59 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=104&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_182d89cb&cb=1767779758350&jobListingId=1009985774018&jrtk=5-yul1-0-1jebu4s2a21jv00a-773863119dd56f59]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=102&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_58296ee6&cb=1767779758350&jobListingId=1008550100346&jrtk=5-yul1-0-1jebu4s2a21jv00a-7a577c18954a7b09 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=102&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_58296ee6&cb=1767779758350&jobListingId=1008550100346&jrtk=5-yul1-0-1jebu4s2a21jv00a-7a577c18954a7b09]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=105&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_44e733ad&cb=1767779758351&jobListingId=1009988489910&jrtk=5-yul1-0-1jebu4s2a21jv00a-946cde54195a539d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=105&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_44e733ad&cb=1767779758351&jobListingId=1009988489910&jrtk=5-yul1-0-1jebu4s2a21jv00a-946cde54195a539d]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=101&ao=1110586&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_3113074b&cb=1767779758350&jobListingId=1009989875463&cpc=9908D8D4413DBB8A&jrtk=5-yul1-0-1jebu4s2a21jv00a-8c6925f59fcea11c---6NYlbfkN0AHI-DsN3s26rCT7s7H_g6vMejkdf_sdhr75KqflCYBtBXpxRP90Ov7xaAgpSTnBBYdyYrU1LoTsZPV8V_9iqHAxaOusDQg3ql44_35mOa4XgHsVVDjqxjFP1exVLlWfN1M1Q_IfygZ-EvAt93OF4aMlMKAJIdgs1HG3l8uXcG51PZkHJx_sWlM7Y1adCqEdEb5xGQuVWjAHFjKVg83u81KbZ6-WSKmzWLp9fD7KlSyp6qw45_4Bx_Va9RkZgUzY2YFucMGIUfWkgAFlL_RUTdMcImevxLO3JH1-9DsPLtrSiNTzJA2rd5GeHPUAridrgD_Snb-LrCrBpd7JN7hFj9Mlz3yhioEqh9VbpNic_M2TMuyjqfNPlfixhWtsd4X_zz2u-sN0ZJMtipxbYYYKD0SvAc358BagCe0vP8Bssed936gPtqXfEDeFr7kEoBbduV4XGG-pXky42cLaFGEexItdF0Aa2DAuLu3TsFXu5hb-Ag3nXen-xWqk-MAQ6qeWkn5dMSSzXeIytN2-_gz6fN8j5nrjZo7Hm7Aj-RXkqnBCqUqQueeeY91xO2uvod4d-gvbiJ2HwBju6pxyvhO3OiWeJtr3iv5t6DwgFV0b1OrPCQ4CTNiie_Dh_XU3SH_v859HMdPykZxY_12WdFOuYR3UpA2k4A6iHSNjucFUa2qVMTCjmWxysXd3OuGwtilZ2KhhgB3dxu7pXkqyyH4R-MBb5yU7o8d0zOR5mRoyTBJx3_3KqgLBnCW882i2_j6mzA06sWFAMrVx-gVWYRmna9RjfR4KnxkyrePBlg16KWYGw%3D%3D - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=101&ao=1110586&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_3113074b&cb=1767779758350&jobListingId=1009989875463&cpc=9908D8D4413DBB8A&jrtk=5-yul1-0-1jebu4s2a21jv00a-8c6925f59fcea11c---6NYlbfkN0AHI-DsN3s26rCT7s7H_g6vMejkdf_sdhr75KqflCYBtBXpxRP90Ov7xaAgpSTnBBYdyYrU1LoTsZPV8V_9iqHAxaOusDQg3ql44_35mOa4XgHsVVDjqxjFP1exVLlWfN1M1Q_IfygZ-EvAt93OF4aMlMKAJIdgs1HG3l8uXcG51PZkHJx_sWlM7Y1adCqEdEb5xGQuVWjAHFjKVg83u81KbZ6-WSKmzWLp9fD7KlSyp6qw45_4Bx_Va9RkZgUzY2YFucMGIUfWkgAFlL_RUTdMcImevxLO3JH1-9DsPLtrSiNTzJA2rd5GeHPUAridrgD_Snb-LrCrBpd7JN7hFj9Mlz3yhioEqh9VbpNic_M2TMuyjqfNPlfixhWtsd4X_zz2u-sN0ZJMtipxbYYYKD0SvAc358BagCe0vP8Bssed936gPtqXfEDeFr7kEoBbduV4XGG-pXky42cLaFGEexItdF0Aa2DAuLu3TsFXu5hb-Ag3nXen-xWqk-MAQ6qeWkn5dMSSzXeIytN2-_gz6fN8j5nrjZo7Hm7Aj-RXkqnBCqUqQueeeY91xO2uvod4d-gvbiJ2HwBju6pxyvhO3OiWeJtr3iv5t6DwgFV0b1OrPCQ4CTNiie_Dh_XU3SH_v859HMdPykZxY_12WdFOuYR3UpA2k4A6iHSNjucFUa2qVMTCjmWxysXd3OuGwtilZ2KhhgB3dxu7pXkqyyH4R-MBb5yU7o8d0zOR5mRoyTBJx3_3KqgLBnCW882i2_j6mzA06sWFAMrVx-gVWYRmna9RjfR4KnxkyrePBlg16KWYGw%3D%3D]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=107&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e85b44ab&cb=1767779758351&jobListingId=1009982738159&jrtk=5-yul1-0-1jebu4s2a21jv00a-6c5ad8a881fddad2 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=107&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e85b44ab&cb=1767779758351&jobListingId=1009982738159&jrtk=5-yul1-0-1jebu4s2a21jv00a-6c5ad8a881fddad2]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=106&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b13875db&cb=1767779758351&jobListingId=1009968848236&jrtk=5-yul1-0-1jebu4s2a21jv00a-d00007822cbde372 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=106&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b13875db&cb=1767779758351&jobListingId=1009968848236&jrtk=5-yul1-0-1jebu4s2a21jv00a-d00007822cbde372]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=108&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_00bc203a&cb=1767779758351&jobListingId=1009982739689&jrtk=5-yul1-0-1jebu4s2a21jv00a-e0889290d494074d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=108&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_00bc203a&cb=1767779758351&jobListingId=1009982739689&jrtk=5-yul1-0-1jebu4s2a21jv00a-e0889290d494074d]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=109&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_531ee281&cb=1767779758351&jobListingId=1009980926434&jrtk=5-yul1-0-1jebu4s2a21jv00a-3807880d0fcde9e2 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=109&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_531ee281&cb=1767779758351&jobListingId=1009980926434&jrtk=5-yul1-0-1jebu4s2a21jv00a-3807880d0fcde9e2]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=110&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_11fe053e&cb=1767779758351&jobListingId=1009977758191&jrtk=5-yul1-0-1jebu4s2a21jv00a-a53e03c68b93e38c - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=110&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_11fe053e&cb=1767779758351&jobListingId=1009977758191&jrtk=5-yul1-0-1jebu4s2a21jv00a-a53e03c68b93e38c]
+Standard scraping failed for Hirist. Switching to Selenium...
+[2026-01-07T15:28:39.796107500] Selenium fetching: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1
+[2026-01-07T15:28:39.796107500] Error fetching URL with Selenium: https://www.hirist.com/jobs/software-engineer-fresher-jobs?exp=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:28:39.796107500] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:28:39.796107500] Initial scraping completed: 0 jobs found
+[2026-01-07T15:28:39.796107500] Enhanced Hirist scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Hirist: Success (0 jobs)
+??  No jobs found from Hirist (took 30824ms)
+? Scraping from Indeed...
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=111&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_9ac4cb8a&cb=1767779758351&jobListingId=1009932740520&jrtk=5-yul1-0-1jebu4s2a21jv00a-1589958dd8f21807 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=111&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_9ac4cb8a&cb=1767779758351&jobListingId=1009932740520&jrtk=5-yul1-0-1jebu4s2a21jv00a-1589958dd8f21807]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=112&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_8782ec1b&cb=1767779758351&jobListingId=1009502399240&jrtk=5-yul1-0-1jebu4s2a21jv00a-3e6426e39cf3017f - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=112&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_8782ec1b&cb=1767779758351&jobListingId=1009502399240&jrtk=5-yul1-0-1jebu4s2a21jv00a-3e6426e39cf3017f]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=114&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_bc12bfa0&cb=1767779758352&jobListingId=1009987137118&jrtk=5-yul1-0-1jebu4s2a21jv00a-bbaf97e121c33daf - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=114&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_bc12bfa0&cb=1767779758352&jobListingId=1009987137118&jrtk=5-yul1-0-1jebu4s2a21jv00a-bbaf97e121c33daf]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=115&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_36cde2f1&cb=1767779758353&jobListingId=1009956169922&jrtk=5-yul1-0-1jebu4s2a21jv00a-10b8e4ce36316a7d - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=115&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_36cde2f1&cb=1767779758353&jobListingId=1009956169922&jrtk=5-yul1-0-1jebu4s2a21jv00a-10b8e4ce36316a7d]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=113&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_b22635ec&cb=1767779758352&jobListingId=1008105557862&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ee5b55c81a45e76 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=113&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_b22635ec&cb=1767779758352&jobListingId=1008105557862&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ee5b55c81a45e76]
+[2026-01-07T15:28:46.801647500] Starting enhanced Indeed scraping with advanced features...
+[2026-01-07T15:28:46.801647500] Configuration: Query='software engineer entry level fresher', Location='India', MaxPages=3, DateFilter=7 days
+[2026-01-07T15:28:46.801647500] Enhanced Indeed scraping page 1: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=0&fromage=7&explvl=ENTRY_LEVEL
+[2026-01-07T15:28:46.823587900] Page 1 completed: 0 jobs found
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=117&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_6519effa&cb=1767779758353&jobListingId=1009924653989&jrtk=5-yul1-0-1jebu4s2a21jv00a-c941be1b51add3e9 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=117&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_6519effa&cb=1767779758353&jobListingId=1009924653989&jrtk=5-yul1-0-1jebu4s2a21jv00a-c941be1b51add3e9]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=116&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_4af31de6&cb=1767779758352&jobListingId=1009960841704&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ed44f4130f5d822 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=116&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_4af31de6&cb=1767779758352&jobListingId=1009960841704&jrtk=5-yul1-0-1jebu4s2a21jv00a-0ed44f4130f5d822]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=118&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_62b4c744&cb=1767779758352&jobListingId=1007771226687&jrtk=5-yul1-0-1jebu4s2a21jv00a-7d8f7ab32a9a57e5 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=118&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_62b4c744&cb=1767779758352&jobListingId=1007771226687&jrtk=5-yul1-0-1jebu4s2a21jv00a-7d8f7ab32a9a57e5]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=119&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_80ba90e8&cb=1767779758352&jobListingId=1009969269586&jrtk=5-yul1-0-1jebu4s2a21jv00a-c60ea9e5f640b433 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=119&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_80ba90e8&cb=1767779758352&jobListingId=1009969269586&jrtk=5-yul1-0-1jebu4s2a21jv00a-c60ea9e5f640b433]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=120&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b55d514d&cb=1767779758353&jobListingId=1009981528985&jrtk=5-yul1-0-1jebu4s2a21jv00a-08a437597ef157e3 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=120&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_b55d514d&cb=1767779758353&jobListingId=1009981528985&jrtk=5-yul1-0-1jebu4s2a21jv00a-08a437597ef157e3]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=121&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7d07bfa1&cb=1767779758353&jobListingId=1009978111660&jrtk=5-yul1-0-1jebu4s2a21jv00a-3265084338ad4c7f - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=121&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_7d07bfa1&cb=1767779758353&jobListingId=1009978111660&jrtk=5-yul1-0-1jebu4s2a21jv00a-3265084338ad4c7f]
+[2026-01-07T15:28:53.930164] Enhanced Indeed scraping page 2: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=10&fromage=7&explvl=ENTRY_LEVEL
+[2026-01-07T15:28:53.946123700] Page 2 completed: 0 jobs found
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=123&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_44391ac4&cb=1767779758354&jobListingId=1009976901492&jrtk=5-yul1-0-1jebu4s2a21jv00a-23a5a4b762f64158 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=123&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_44391ac4&cb=1767779758354&jobListingId=1009976901492&jrtk=5-yul1-0-1jebu4s2a21jv00a-23a5a4b762f64158]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=122&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_29d3cd87&cb=1767779758354&jobListingId=1009974771214&jrtk=5-yul1-0-1jebu4s2a21jv00a-c211b2e292fdb8b7 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=122&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_29d3cd87&cb=1767779758354&jobListingId=1009974771214&jrtk=5-yul1-0-1jebu4s2a21jv00a-c211b2e292fdb8b7]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=124&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_163af2ff&cb=1767779758354&jobListingId=1009559911480&jrtk=5-yul1-0-1jebu4s2a21jv00a-034408264eaa1daa - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=124&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&cs=1_163af2ff&cb=1767779758354&jobListingId=1009559911480&jrtk=5-yul1-0-1jebu4s2a21jv00a-034408264eaa1daa]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=125&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_67871cd9&cb=1767779758354&jobListingId=1009978071119&jrtk=5-yul1-0-1jebu4s2a21jv00a-2aad9a02e5c9d913 - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=125&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_67871cd9&cb=1767779758354&jobListingId=1009978071119&jrtk=5-yul1-0-1jebu4s2a21jv00a-2aad9a02e5c9d913]
+Failed to deep scrape job: https://www.glassdoor.co.in/partner/jobListing.htm?pos=126&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e96a0e50&cb=1767779758354&jobListingId=1009972166596&jrtk=5-yul1-0-1jebu4s2a21jv00a-c3ab7999113f935a - HTTP error fetching URL. Status=403, URL=[https://www.glassdoor.co.in/partner/jobListing.htm?pos=126&ao=1136043&s=58&guid=0000019b97e2700f9285982573eb4512&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_e96a0e50&cb=1767779758354&jobListingId=1009972166596&jrtk=5-yul1-0-1jebu4s2a21jv00a-c3ab7999113f935a]
+Deep scraping completed. Enhanced 26 jobs out of 26
+After deep scraping: 26 enhanced jobs
+Link verification completed. 26 out of 26 jobs have valid links.
+After link verification: 26 jobs with verified links
+[2026-01-07T15:28:59.658823200] Enhanced Glassdoor scraping completed: 26 verified fresh jobs with working links
+[MONITOR] Glassdoor: Success (26 jobs)
+? Glassdoor returned 26 jobs (took 54020ms)
+? Scraping from Enhanced Internshala...
+[2026-01-07T15:29:00.955981600] Enhanced Indeed scraping page 3: https://www.indeed.co.in/jobs?q=software+engineer+entry+level+fresher&l=India&start=20&fromage=7&explvl=ENTRY_LEVEL
+[2026-01-07T15:29:00.984902700] Page 3 completed: 0 jobs found
+[2026-01-07T15:29:00.985900600] Initial scraping completed: 0 jobs found
+[2026-01-07T15:29:00.985900600] Enhanced Indeed scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Indeed (took 21189ms)
+??  Skipping disabled portal: Enhanced Jobsora
+??  Skipping disabled portal: LinkedIn
+? Scraping from Enhanced Naukri...
+Starting enhanced Internshala scraping with advanced features...
+Configuration: Query='software development fresher', Location='India', MaxPages=3
+[2026-01-07T15:29:03.715321800] Scraping Internshala page 1: https://internshala.com/jobs/software-development-fresher-jobs
+Page 1 completed: 0 jobs found
+[2026-01-07T15:29:08.119210700] Scraping Internshala page 2: https://internshala.com/jobs/software-development-fresher-jobs?page=2
+Page 2 completed: 0 jobs found
+[2026-01-07T15:29:08.988929300] Enhanced Naukri scraping page 1: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.988929300] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:29:08.988929300] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.989927600] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:29:08.989927600] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:29:08.989927600] Enhanced Naukri scraping page 2: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.989927600] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:29:08.989927600] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.989927600] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-2?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:29:08.989927600] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:29:08.990924500] Enhanced Naukri scraping page 3: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.990924500] Standard scraping failed for Naukri (Possible bot block or empty result). Switching to Selenium...
+[2026-01-07T15:29:08.990924500] Selenium fetching: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1
+[2026-01-07T15:29:08.990924500] Error fetching URL with Selenium: https://www.naukri.com/software+engineer+fresher-jobs-india-0-to-1-years-3?k=software+engineer+fresher&l=India&experienceMin=0&experienceMax=1 - Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+[2026-01-07T15:29:08.990924500] Selenium fetch failed (attempt 1/3): Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "this.driver" is null
+Selenium scraping also failed: Max driver restart attempts reached. Please restart the application.
+[2026-01-07T15:29:08.990924500] Enhanced Naukri scraper found 0 jobs
+??  No jobs found from Enhanced Naukri (took 8005ms)
+? Scraping from Enhanced Shine...
+[2026-01-07T15:29:12.286483100] Scraping Internshala page 3: https://internshala.com/jobs/software-development-fresher-jobs?page=3
+Page 3 completed: 0 jobs found
+Initial scraping completed: 0 jobs found
+Enhanced Internshala scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Enhanced Internshala (took 12876ms)
+? Scraping from Enhanced Wellfound...
+Starting enhanced Shine scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3, ExperienceMax=1 years
+Scraping Shine page 1: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time
+Jsoup failed or blocked, switching to Selenium for Shine page 1
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 1 completed: 60 jobs found
+Scraping Shine page 2: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time&page=2
+Jsoup failed or blocked, switching to Selenium for Shine page 2
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 2 completed: 60 jobs found
+Starting enhanced Wellfound scraping with advanced features...
+Configuration: Query='software engineer fresher', Location='India', MaxPages=3
+Scraping Wellfound page 1: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true
+Jsoup failed or blocked, switching to Selenium for Wellfound page 1
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 1: Wellfound scraping failed with both Jsoup and Selenium
+Scraping Wellfound page 2: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true&page=2
+Jsoup failed or blocked, switching to Selenium for Wellfound page 2
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 2: Wellfound scraping failed with both Jsoup and Selenium
+Scraping Wellfound page 3: https://wellfound.com/jobs?q=software+engineer+fresher&location=India&experience=entry_level&type=full_time&remote=true&page=3
+Jsoup failed or blocked, switching to Selenium for Wellfound page 3
+Selenium also failed for Wellfound: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Error scraping Wellfound page 3: Wellfound scraping failed with both Jsoup and Selenium
+Initial scraping completed: 0 jobs found
+Enhanced Wellfound scraping completed: 0 verified fresh jobs with working links
+??  No jobs found from Enhanced Wellfound (took 8066ms)
+Scraping Shine page 3: https://www.shine.com/job-search/software-engineer-fresher-jobs?experienceMax=1&datePosted=7&jobType=full_time&page=3
+2026-01-07T15:29:21.702+05:30  WARN 12328 --- [ResumeOpt] [onPool-worker-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2026-01-07T15:29:21.703+05:30  WARN 12328 --- [ResumeOpt] [onPool-worker-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.170. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jsoup failed or blocked, switching to Selenium for Shine page 3
+Selenium also failed for Shine: Cannot invoke "org.openqa.selenium.WebDriver.get(String)" because "driver" is null
+Page 3 completed: 60 jobs found
+[2026-01-07T15:29:22.067452500] Selenium WebDriver initialized successfully
+[2026-01-07T15:29:22.068450] Selenium fetching: https://cutshort.io/jobs/software-engineer-fresher?location=India&experience=0-1
+Initial scraping completed: 180 jobs found
+[2026-01-07T15:29:22.068450] Applying advanced processing pipeline...
+[2026-01-07T15:29:22.073436900] After date filtering: 180 fresh jobs (within past week)
+Deep scraping completed. Enhanced 9 jobs out of 30
+[2026-01-07T15:29:47.770992100] After deep scraping: 9 enhanced jobs
+Link verification completed. 9 out of 9 jobs have valid links.
+[2026-01-07T15:29:47.771989800] After link verification: 9 jobs with verified links
+Enhanced Shine scraping completed: 9 verified fresh jobs with working links
+? Enhanced Shine returned 9 jobs (took 38780ms)
+[2026-01-07T15:32:30.069376200] Saved failed page to: failed_cutshort_io_jobs_sof.html
+No job cards found on Cutshort page 1. Page structure may have changed or no results available.
+[2026-01-07T15:32:30.079347300] Initial scraping completed: 0 jobs found
+[2026-01-07T15:32:30.079347300] Enhanced Cutshort scraping completed: 0 verified fresh jobs with working links
+[MONITOR] Cutshort: Success (0 jobs)
+??  No jobs found from Cutshort (took 407687ms)
+2026-01-07T15:34:52.676+05:30  INFO 12328 --- [ResumeOpt] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-01-07T15:34:52.678+05:30  INFO 12328 --- [ResumeOpt] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@232b4552]]
+2026-01-07T15:34:52.678+05:30  INFO 12328 --- [ResumeOpt] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.

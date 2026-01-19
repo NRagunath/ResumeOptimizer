@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Optimizer - ResumeOpt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <script defer src="/js/realtime.js"></script>
+  <script defer src="/js/modern-ui.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    
+    .upload-area {
+      border: 3px dashed var(--gray-300);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-2xl);
+      text-align: center;
+      transition: all var(--transition-base);
+      cursor: pointer;
+      background: var(--gray-50);
+      position: relative;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+    
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.1);
+      transform: scale(1.02);
+    }
+    
+    .score-display {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+    
+    .score-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      font-weight: 800;
+      z-index: 2;
+    }
+    
+    .score-label {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+    
+    .progress-ring {
+      width: 200px;
+      height: 200px;
+      transform: rotate(-90deg);
+    }
+    
+    .progress-ring-circle {
+      transition: stroke-dashoffset 1s ease-in-out;
+      fill: none;
+      stroke-width: 8;
+    }
+    
+    .improvement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-modern">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <i class="fas fa-briefcase me-2"></i>ResumeOpt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="/resume">Resume Optimizer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/jobs">Job Listings</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tracking">Tracking Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-modern">
+  <div class="content-wrapper animate-fade-in">
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <h1 class="text-gradient mb-2">
+        <i class="fas fa-magic me-2"></i>ATS Resume Optimizer
+      </h1>
+      <p class="text-muted">
+        Upload your resume and paste a target job description. Get instant ATS-optimized resume with detailed change tracking.
+      </p>
+    </div>
+
+    <!-- Error message -->
+    <div th:if="${error}" class="alert alert-danger border-0 shadow-modern mb-4" role="alert">
+      <i class="fas fa-exclamation-circle me-2"></i>
+      <strong>Error:</strong> <span th:text="${error}"></span>
+    </div>
+
+    <!-- Input Form -->
+    <form method="post" action="/resume/optimize" enctype="multipart/form-data" id="optimizeForm" th:if="${resumeId == null}">
+      <div class="row g-4">
+        <!-- Resume Input -->
+        <div class="col-md-6">
+          <div class="card-modern">
+            <div class="card-header">
+              <h5 class="mb-0">
+                <i class="fas fa-file-upload me-2"></i>Your Resume
+              </h5>
+            </div>
+            <div class="card-body">
+              <!-- File Upload Area -->
+              <div class="upload-area mb-3" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                <h5 class="mb-2">Drag & Drop Your Resume</h5>
+                <p class="text-muted mb-3">or click to browse</p>
+                <input type="file" name="resumeFile" id="resumeFile" accept=".pdf,.docx" 
+                       class="d-none" onchange="handleFileSelect(this)">
+                <button type="button" class="btn btn-outline-modern btn-modern" onclick="document.getElementById('resumeFile').click()">
+                  <i class="fas fa-folder-open me-2"></i>Choose File
+                </button>
+                <div id="fileName" class="mt-3 text-success" style="display: none;">
+                  <i class="fas fa-check-circle me-2"></i><span id="fileNameText"></span>
+                </div>
+              </div>
+              
+              <div class="text-center mb-3">
+                <span class="text-muted">OR</span>
+              </div>
+              
+              <!-- Text Input -->
+              <label class="form-label fw-bold">
+                <i class="fas fa-paste me-2"></i>Paste Resume Text
+              </label>
+              <textarea class="form-control form-control-modern" name="resumeText" rows="10" 
+                        placeholder="Paste your resume text here..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="col-md-6">
+          <div class="card-modern">
+            <div class="card-header">
+              <h5 class="mb-0">
+                <i class="fas fa-briefcase me-2"></i>Target Job Description
+              </h5>
+            </div>
+            <div class="card-body">
+              <label class="form-label fw-bold mb-2">
+                <i class="fas fa-file-alt me-2"></i>Paste Job Description
+              </label>
+              <textarea class="form-control form-control-modern" name="jobDescription" rows="10" 
+                        placeholder="Paste the complete job description here..." required></textarea>
+              
+              <!-- Design Selection -->
+              <div class="mt-4">
+                <label class="form-label fw-bold">
+                  <i class="fas fa-palette me-2"></i>Resume Design Template
+                </label>
+                <select class="form-select form-control-modern" name="design" id="designSelect">
+                  <option value="">Auto-Recommend (Recommended)</option>
+                  <option value="MINIMAL">Minimal - Maximum ATS Compatibility</option>
+                  <option value="PROFESSIONAL">Professional - Corporate-Friendly</option>
+                  <option value="MODERN">Modern - Contemporary Style</option>
+                  <option value="CREATIVE">Creative - Design-Focused</option>
+                  <option value="EXECUTIVE">Executive - Leadership Roles</option>
+                </select>
+                <small class="text-muted d-block mt-2">
+                  <i class="fas fa-info-circle me-1"></i>
+                  We'll recommend the best design based on your resume and job description
+                </small>
+              </div>
+              
+              <button class="btn btn-primary-modern btn-modern w-100 mt-4" type="submit" id="submitBtn">
+                <i class="fas fa-magic me-2"></i><span id="submitText">Optimize Resume</span>
+                <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display: none;"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Results Section -->
+    <div th:if="${resumeId != null}" class="animate-fade-in">
+      <!-- Success Banner -->
+      <div class="card-modern mb-4" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1)); border: 2px solid #10b981;">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="me-3">
+              <i class="fas fa-check-circle fa-3x text-success"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h3 class="mb-1 text-success">Resume Optimization Complete!</h3>
+              <p class="mb-0 text-muted">Your resume has been successfully optimized for ATS systems.</p>
+            </div>
+            <div th:if="${improvement != null}">
+              <div class="improvement-badge">
+                <i class="fas fa-arrow-up"></i>
+                <span th:text="${improvement}">0</span>% Improvement
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Cards -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card-modern score-card">
+            <div class="card-body text-center">
+              <h5 class="mb-4 text-primary">Original ATS Score</h5>
+              <div class="score-display">
+                <svg class="progress-ring" viewBox="0 0 100 100">
+                  <circle class="progress-ring-circle" cx="50" cy="50" r="45" 
+                          stroke="#e5e7eb" stroke-width="8" fill="none"/>
+                  <circle class="progress-ring-circle" cx="50" cy="50" r="45" 
+                          stroke="#3b82f6" stroke-width="8" fill="none"
+                          th:stroke-dasharray="${atsOriginalNum != null ? (atsOriginalNum * 2.827) + ', 283' : '0, 283'}"
+                          th:stroke-dashoffset="${atsOriginalNum != null ? (283 - (atsOriginalNum * 2.827)) : 283}"/>
+                </svg>
+                <div class="score-value text-primary" th:text="${atsOriginal != null ? atsOriginal + '%' : '0%'}">0%</div>
+                <div class="score-label text-primary">Before</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-modern score-card">
+            <div class="card-body text-center">
+              <h5 class="mb-4 text-success">Optimized ATS Score</h5>
+              <div class="score-display">
+                <svg class="progress-ring" viewBox="0 0 100 100">
+                  <circle class="progress-ring-circle" cx="50" cy="50" r="45" 
+                          stroke="#e5e7eb" stroke-width="8" fill="none"/>
+                  <circle class="progress-ring-circle" cx="50" cy="50" r="45" 
+                          stroke="#10b981" stroke-width="8" fill="none"
+                          th:stroke-dasharray="${atsOptimizedNum != null ? (atsOptimizedNum * 2.827) + ', 283' : '0, 283'}"
+                          th:stroke-dashoffset="${atsOptimizedNum != null ? (283 - (atsOptimizedNum * 2.827)) : 283}"/>
+                </svg>
+                <div class="score-value text-success" th:text="${atsOptimized != null ? atsOptimized + '%' : '0%'}">0%</div>
+                <div class="score-label text-success">After</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design Info -->
+      <div class="card-modern mb-4" th:if="${selectedDesign != null or recommendedDesign != null}">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-palette me-2"></i>Resume Design
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6" th:if="${selectedDesign != null}">
+              <strong class="d-block mb-2">Selected Design:</strong>
+              <span class="badge badge-modern badge-primary-modern" th:text="${selectedDesign}">Design</span>
+            </div>
+            <div class="col-md-6" th:if="${recommendedDesign != null and recommendedDesign != selectedDesign}">
+              <strong class="d-block mb-2">Recommended:</strong>
+              <span class="badge badge-modern badge-success-modern" th:text="${recommendedDesign}">Design</span>
+            </div>
+            <div class="col-12" th:if="${designPreview != null}">
+              <div class="d-flex gap-4 flex-wrap">
+                <div>
+                  <strong>ATS Compatibility:</strong>
+                  <span class="badge badge-modern badge-primary-modern" th:text="${designPreview.atsCompatibility} + '%'">95%</span>
+                </div>
+                <div>
+                  <strong>Best For:</strong>
+                  <span th:text="${designPreview.bestFor}">Roles</span>
+                </div>
+              </div>
+              <p class="text-muted mt-2 mb-0" th:text="${designPreview.description}">Description</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex gap-3 justify-content-center flex-wrap mb-4">
+        <a th:href="@{'/resume/original/' + ${resumeId}}" class="btn btn-outline-modern btn-modern btn-lg">
+          <i class="fas fa-file me-2"></i>Download Original
+        </a>
+        <a th:href="@{'/resume/pdf/' + ${resumeId}}" class="btn btn-success-modern btn-modern btn-lg">
+          <i class="fas fa-download me-2"></i>Download ATS-Optimized PDF
+        </a>
+        <a th:href="@{'/resume/docx/' + ${resumeId}}" class="btn btn-outline-modern btn-modern btn-lg">
+          <i class="fas fa-file-word me-2"></i>Download DOCX (Design-Preserved)
+        </a>
+        <a th:href="@{'/resume/diff/' + ${resumeId}}" class="btn btn-primary-modern btn-modern btn-lg">
+          <i class="fas fa-code-branch me-2"></i>Review Changes
+        </a>
+      </div>
+
+      <!-- Template Preview Cards -->
+      <div class="card-modern mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-file-invoice me-2"></i>ATS-Optimized Templates
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-3 col-sm-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                  <h6 class="card-title">Minimal</h6>
+                  <p class="card-text text-muted small">Single-column, ultra-clean layout for maximum ATS compatibility.</p>
+                  <div class="d-flex flex-column gap-2">
+                    <a th:href="@{'/resume/template/' + ${resumeId} + '?style=MINIMAL'}" target="_blank" class="btn btn-sm btn-outline-modern">
+                      Preview
+                    </a>
+                    <a th:href="@{'/resume/pdf/' + ${resumeId} + '/template?style=MINIMAL'}" class="btn btn-sm btn-primary-modern">
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                  <h6 class="card-title">Professional</h6>
+                  <p class="card-text text-muted small">Corporate-ready resume with conservative typography.</p>
+                  <div class="d-flex flex-column gap-2">
+                    <a th:href="@{'/resume/template/' + ${resumeId} + '?style=PROFESSIONAL'}" target="_blank" class="btn btn-sm btn-outline-modern">
+                      Preview
+                    </a>
+                    <a th:href="@{'/resume/pdf/' + ${resumeId} + '/template?style=PROFESSIONAL'}" class="btn btn-sm btn-primary-modern">
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                  <h6 class="card-title">Modern</h6>
+                  <p class="card-text text-muted small">Clean, modern layout suitable for product/UX/tech roles.</p>
+                  <div class="d-flex flex-column gap-2">
+                    <a th:href="@{'/resume/template/' + ${resumeId} + '?style=MODERN'}" target="_blank" class="btn btn-sm btn-outline-modern">
+                      Preview
+                    </a>
+                    <a th:href="@{'/resume/pdf/' + ${resumeId} + '/template?style=MODERN'}" class="btn btn-sm btn-primary-modern">
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                  <h6 class="card-title">Tech</h6>
+                  <p class="card-text text-muted small">Developer-focused resume emphasizing skills and projects.</p>
+                  <div class="d-flex flex-column gap-2">
+                    <a th:href="@{'/resume/template/' + ${resumeId} + '?style=TECH'}" target="_blank" class="btn btn-sm btn-outline-modern">
+                      Preview
+                    </a>
+                    <a th:href="@{'/resume/pdf/' + ${resumeId} + '/template?style=TECH'}" class="btn btn-sm btn-primary-modern">
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume Comparison -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card-modern">
+            <div class="card-header" style="background: var(--gray-100);">
+              <h5 class="mb-0">
+                <i class="fas fa-file-alt me-2"></i>Original Resume
+              </h5>
+            </div>
+            <div class="card-body">
+              <div style="max-height: 400px; overflow-y: auto; background: var(--gray-50); padding: var(--spacing-md); border-radius: var(--radius-md);">
+                <pre style="white-space: pre-wrap; font-size: 0.9em; margin: 0; font-family: 'Courier New', monospace;" th:text="${originalText}">Original resume text</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-modern">
+            <div class="card-header" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));">
+              <h5 class="mb-0 text-success">
+                <i class="fas fa-magic me-2"></i>Optimized Resume
+              </h5>
+            </div>
+            <div class="card-body">
+              <div style="max-height: 400px; overflow-y: auto; background: var(--gray-50); padding: var(--spacing-md); border-radius: var(--radius-md);">
+                <pre style="white-space: pre-wrap; font-size: 0.9em; margin: 0; font-family: 'Courier New', monospace;" th:text="${optimizedText}">Optimized resume text</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keywords -->
+      <div class="card-modern mb-4" th:if="${injectedKeywords != null and !#lists.isEmpty(injectedKeywords)}">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-tags me-2"></i>Added Keywords (<span th:text="${#lists.size(injectedKeywords)}">0</span>)
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-2">
+            <span th:each="kw : ${injectedKeywords}" 
+                  class="badge badge-modern badge-primary-modern px-3 py-2" 
+                  th:text="${kw}">keyword</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insights -->
+      <div class="card-modern" th:if="${insights != null and !#lists.isEmpty(insights)}">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-lightbulb me-2"></i>Optimization Insights
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item border-0 px-0" th:each="insight : ${insights}">
+              <div class="d-flex align-items-start">
+                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                <span th:text="${insight}">Insight</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  setupDragAndDrop();
+  setupFileInput();
+  animateScores();
+});
+
+// Drag and drop
+function setupDragAndDrop() {
+  const uploadArea = document.getElementById('uploadArea');
+  if (!uploadArea) return;
+  
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    uploadArea.addEventListener(eventName, preventDefaults, false);
+  });
+  
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  ['dragenter', 'dragover'].forEach(eventName => {
+    uploadArea.addEventListener(eventName, () => {
+      uploadArea.classList.add('dragover');
+    }, false);
+  });
+  
+  ['dragleave', 'drop'].forEach(eventName => {
+    uploadArea.addEventListener(eventName, () => {
+      uploadArea.classList.remove('dragover');
+    }, false);
+  });
+  
+  uploadArea.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files.length > 0) {
+      document.getElementById('resumeFile').files = files;
+      handleFileSelect(document.getElementById('resumeFile'));
+    }
+  });
+  
+  uploadArea.addEventListener('click', () => {
+    document.getElementById('resumeFile').click();
+  });
+}
+
+function setupFileInput() {
+  const fileInput = document.getElementById('resumeFile');
+  if (fileInput) {
+    fileInput.addEventListener('change', function() {
+      handleFileSelect(this);
+    });
+  }
+}
+
+function handleFileSelect(input) {
+  if (input.files && input.files.length > 0) {
+    const fileName = input.files[0].name;
+    document.getElementById('fileNameText').textContent = fileName;
+    document.getElementById('fileName').style.display = 'block';
+  }
+}
+
+// Animate score circles
+function animateScores() {
+  const circles = document.querySelectorAll('.progress-ring-circle');
+  circles.forEach(circle => {
+    const dashArray = circle.getAttribute('stroke-dasharray');
+    if (dashArray) {
+      const [dash, total] = dashArray.split(',').map(Number);
+      circle.style.strokeDasharray = `0 ${total}`;
+      setTimeout(() => {
+        circle.style.strokeDasharray = `${dash} ${total}`;
+      }, 100);
+    }
+  });
+}
+
+// Form validation and submission handling
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('optimizeForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      const resumeFile = document.getElementById('resumeFile');
+      const resumeText = document.querySelector('textarea[name="resumeText"]');
+      const jobDescription = document.querySelector('textarea[name="jobDescription"]');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+      const submitSpinner = document.getElementById('submitSpinner');
+      
+      // Validate job description
+      if (!jobDescription || !jobDescription.value || jobDescription.value.trim().length === 0) {
+        e.preventDefault();
+        alert('Please provide a job description.');
+        jobDescription.focus();
+        return false;
+      }
+      
+      // Validate resume input (either file or text)
+      const hasFile = resumeFile && resumeFile.files && resumeFile.files.length > 0;
+      const hasText = resumeText && resumeText.value && resumeText.value.trim().length > 0;
+      
+      if (!hasFile && !hasText) {
+        e.preventDefault();
+        alert('Please provide your resume either by uploading a file or pasting the text.');
+        if (resumeText) resumeText.focus();
+        return false;
+      }
+      
+      // Show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        if (submitText) submitText.textContent = 'Optimizing...';
+        if (submitSpinner) submitSpinner.style.display = 'inline-block';
+      }
+      
+      // Form is valid, allow submission
+      return true;
+    });
+  }
+});
+</script>
+</body>
+</html>

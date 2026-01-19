@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Recommendations - ResumeOpt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <script defer src="/js/realtime.js"></script>
+  <script defer src="/js/modern-ui.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    
+    .match-indicator {
+      width: 100%;
+      height: 8px;
+      background: var(--gray-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: var(--spacing-sm);
+    }
+    
+    .match-bar {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width var(--transition-slow);
+    }
+    
+    .match-EXCELLENT .match-bar { background: linear-gradient(90deg, #10b981, #059669); }
+    .match-VERY_GOOD .match-bar { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+    .match-GOOD .match-bar { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .match-NOT_RECOMMENDED .match-bar { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-modern">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <i class="fas fa-briefcase me-2"></i>ResumeOpt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/resume">Resume Optimizer</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/jobs">All Jobs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tracking">Tracking Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-modern">
+  <div class="content-wrapper animate-fade-in">
+    <!-- Header -->
+    <div class="mb-4">
+      <h1 class="text-gradient mb-2">
+        <i class="fas fa-bullseye me-2"></i>Personalized Job Recommendations
+      </h1>
+      <p class="text-muted">
+        Get curated, entry-level IT/software roles categorized by suitability with transparent reasoning and match scores
+      </p>
+    </div>
+
+    <!-- Resume Input Form -->
+    <div class="card-modern mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="fas fa-file-alt me-2"></i>Enter Your Resume
+        </h5>
+      </div>
+      <div class="card-body">
+        <form method="post" action="/jobs/recommend" id="recommendForm">
+          <div class="mb-3">
+            <label class="form-label fw-bold">
+              <i class="fas fa-paste me-2"></i>Paste Your Resume Text
+            </label>
+            <textarea class="form-control form-control-modern" name="resumeText" rows="12" 
+                      placeholder="Paste your resume text here. Include your skills, experience, education, and projects..."
+                      required th:text="${resumeText}"></textarea>
+            <small class="text-muted">
+              <i class="fas fa-info-circle me-1"></i>
+              The more detailed your resume, the better our recommendations will be.
+            </small>
+          </div>
+          <button class="btn btn-primary-modern btn-modern" type="submit">
+            <i class="fas fa-search me-2"></i>Get Recommendations
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Recommendations Results -->
+    <div th:if="${recommendations} != null" class="animate-fade-in">
+      <!-- Filter and Sort -->
+      <div class="card-modern mb-4">
+        <div class="card-body">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-6">
+              <label class="form-label fw-bold mb-2">
+                <i class="fas fa-filter me-2"></i>Filter by Match Level
+              </label>
+              <select class="form-select form-control-modern" id="matchFilter" onchange="filterJobs()">
+                <option value="">All Matches</option>
+                <option value="EXCELLENT">Get the Job (Excellent Match)</option>
+                <option value="VERY_GOOD">Strong Match</option>
+                <option value="GOOD">Good Match</option>
+                <option value="NOT_RECOMMENDED">Low Match</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold mb-2">
+                <i class="fas fa-sort me-2"></i>Sort By
+              </label>
+              <select class="form-select form-control-modern" id="sortBy" onchange="sortJobs()">
+                <option value="match">Match Score (High to Low)</option>
+                <option value="company">Company Name</option>
+                <option value="title">Job Title</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations List -->
+      <div id="recommendationsList">
+        <div class="job-card-modern match-EXCELLENT" 
+             th:each="job : ${recommendations}" 
+             th:attr="data-match-level=${job.matchLevel}, data-match-score=${job.successProbability ?: 0}, data-company=${job.company}, data-title=${job.title}">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="flex-grow-1">
+              <h3 class="job-title mb-1" th:text="${job.title}">Job Title</h3>
+              <div class="job-company mb-2">
+                <i class="fas fa-building me-2"></i>
+                <span th:text="${job.company}">Company Name</span>
+              </div>
+            </div>
+            <div class="text-end">
+              <span th:switch="${job.matchLevel}" class="badge badge-modern d-block mb-2">
+                <span th:case="'EXCELLENT'" class="badge badge-success-modern badge-modern">
+                  <i class="fas fa-star me-1"></i>Get the Job
+                </span>
+                <span th:case="'VERY_GOOD'" class="badge badge-primary-modern badge-modern">
+                  <i class="fas fa-thumbs-up me-1"></i>Strong Match
+                </span>
+                <span th:case="'GOOD'" class="badge badge-warning-modern badge-modern">
+                  <i class="fas fa-check me-1"></i>Good Match
+                </span>
+                <span th:case="'NOT_RECOMMENDED'" class="badge badge-danger-modern badge-modern">
+                  <i class="fas fa-times me-1"></i>Low Match
+                </span>
+              </span>
+              <div class="match-indicator" th:classappend="'match-' + ${job.matchLevel}">
+                <div class="match-bar" 
+                     th:style="'width: ' + ${job.successProbability ? job.successProbability * 100 : 0} + '%;'"></div>
+              </div>
+              <small class="text-muted d-block mt-1" th:if="${job.successProbability}">
+                <span th:text="${#numbers.formatDecimal(job.successProbability * 100, 1, 1)}">0</span>% Match
+              </small>
+            </div>
+          </div>
+          
+          <p class="job-description" th:text="${job.description}">Job description...</p>
+          
+          <div class="job-meta mb-3">
+            <a th:href="${job.applyUrl}" target="_blank" 
+               class="btn btn-primary-modern btn-modern btn-sm">
+              <i class="fas fa-external-link-alt me-2"></i>Apply Now
+            </a>
+            <button class="btn btn-outline-modern btn-modern btn-sm" 
+                    th:onclick="'trackApplication(\'' + ${job.title} + '\', \'' + ${job.company} + '\', \'' + ${job.applyUrl} + '\')'">
+              <i class="fas fa-bookmark me-2"></i>Track Application
+            </button>
+          </div>
+          
+          <!-- Match Insights -->
+          <div class="card-modern" style="background: var(--gray-50); border: 1px solid var(--gray-200);">
+            <div class="card-body p-3">
+              <div th:switch="${job.matchLevel}">
+                <div th:case="'EXCELLENT'" class="d-flex align-items-start">
+                  <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                  <div>
+                    <strong class="text-success">Excellent Match!</strong>
+                    <p class="mb-0 small text-muted">Your resume aligns perfectly with this position. This is a great opportunity!</p>
+                  </div>
+                </div>
+                <div th:case="'VERY_GOOD'" class="d-flex align-items-start">
+                  <i class="fas fa-thumbs-up text-primary me-2 mt-1"></i>
+                  <div>
+                    <strong class="text-primary">Strong Match</strong>
+                    <p class="mb-0 small text-muted">Your skills closely match the requirements. You have a good chance!</p>
+                  </div>
+                </div>
+                <div th:case="'GOOD'" class="d-flex align-items-start">
+                  <i class="fas fa-info-circle text-warning me-2 mt-1"></i>
+                  <div>
+                    <strong class="text-warning">Good Match</strong>
+                    <p class="mb-0 small text-muted">Consider tailoring your resume further to improve your chances.</p>
+                  </div>
+                </div>
+                <div th:case="'NOT_RECOMMENDED'" class="d-flex align-items-start">
+                  <i class="fas fa-times-circle text-danger me-2 mt-1"></i>
+                  <div>
+                    <strong class="text-danger">Low Match</strong>
+                    <p class="mb-0 small text-muted">This position may not be the best fit based on your current profile.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Skill Gaps -->
+          <div class="mt-3" th:if="${job.skillGaps != null and !#lists.isEmpty(job.skillGaps)}">
+            <small class="text-muted d-block mb-2">
+              <strong><i class="fas fa-exclamation-triangle me-1"></i>Skill Gaps to Address:</strong>
+            </small>
+            <div class="d-flex flex-wrap gap-1">
+              <span th:each="s : ${job.skillGaps}" 
+                    class="badge bg-warning text-dark" th:text="${s}">Skill</span>
+            </div>
+          </div>
+          
+          <!-- Guidance Tips -->
+          <div class="mt-3" th:if="${job.guidanceTips != null and !#lists.isEmpty(job.guidanceTips)}">
+            <small class="text-muted d-block mb-2">
+              <strong><i class="fas fa-lightbulb me-1"></i>Improvement Tips:</strong>
+            </small>
+            <ul class="small mb-0">
+              <li th:each="g : ${job.guidanceTips}" th:text="${g}">Tip</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function filterJobs() {
+  const filter = document.getElementById('matchFilter').value;
+  const jobs = document.querySelectorAll('#recommendationsList .job-card-modern');
+  let visibleCount = 0;
+  
+  jobs.forEach(job => {
+    const matchLevel = job.dataset.matchLevel;
+    if (!filter || matchLevel === filter) {
+      job.style.display = '';
+      visibleCount++;
+    } else {
+      job.style.display = 'none';
+    }
+  });
+  
+  if (visibleCount === 0) {
+    showEmptyState();
+  } else {
+    hideEmptyState();
+  }
+}
+
+function sortJobs() {
+  const sortBy = document.getElementById('sortBy').value;
+  const container = document.getElementById('recommendationsList');
+  const jobs = Array.from(container.querySelectorAll('.job-card-modern'));
+  
+  jobs.sort((a, b) => {
+    if (sortBy === 'match') {
+      const scoreA = parseFloat(a.dataset.matchScore) || 0;
+      const scoreB = parseFloat(b.dataset.matchScore) || 0;
+      return scoreB - scoreA;
+    } else if (sortBy === 'company') {
+      return (a.dataset.company || '').localeCompare(b.dataset.company || '');
+    } else if (sortBy === 'title') {
+      return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+    }
+    return 0;
+  });
+  
+  jobs.forEach(job => container.appendChild(job));
+}
+
+function trackApplication(title, company, url) {
+  fetch('/jobs/track', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      jobTitle: title,
+      companyName: company,
+      applyUrl: url
+    })
+  })
+  .then(() => {
+    if (window.modernUI) {
+      window.modernUI.showToast('Application tracked successfully!', 'success');
+    }
+  })
+  .catch(err => {
+    console.error('Error tracking application:', err);
+    if (window.modernUI) {
+      window.modernUI.showToast('Failed to track application', 'error');
+    }
+  });
+}
+
+function showEmptyState() {
+  // Implement empty state if needed
+}
+
+function hideEmptyState() {
+  // Hide empty state if needed
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate match bars
+  setTimeout(() => {
+    document.querySelectorAll('.match-bar').forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => {
+        bar.style.width = width;
+      }, 100);
+    });
+  }, 500);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume - Minimal Template</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 24px;
+      color: #111827;
+    }
+    .name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .contact {
+      font-size: 11px;
+      color: #4b5563;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #d1d5db;
+      padding-bottom: 2px;
+    }
+    .summary {
+      margin-bottom: 6px;
+    }
+    .item-title {
+      font-weight: 600;
+    }
+    .item-sub {
+      font-size: 11px;
+      color: #4b5563;
+    }
+    ul {
+      padding-left: 18px;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+    li {
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="name" th:text="${structuredResume.header.fullName}">Full Name</div>
+    <div class="contact">
+      <span th:text="${structuredResume.header.email}" th:if="${structuredResume.header.email}">email@example.com</span>
+      <span th:if="${structuredResume.header.email and structuredResume.header.phone}"> | </span>
+      <span th:text="${structuredResume.header.phone}" th:if="${structuredResume.header.phone}">+1 555-555-5555</span>
+      <span th:if="${(structuredResume.header.email or structuredResume.header.phone) and structuredResume.header.location}"> | </span>
+      <span th:text="${structuredResume.header.location}" th:if="${structuredResume.header.location}">City, Country</span>
+      <span th:if="${structuredResume.header.linkedin}"> | </span>
+      <span th:text="${structuredResume.header.linkedin}" th:if="${structuredResume.header.linkedin}">linkedin.com/in/example</span>
+    </div>
+
+    <div th:if="${structuredResume.summary}">
+      <div class="section-title">Summary</div>
+      <div class="summary" th:text="${structuredResume.summary}">Professional summary goes here.</div>
+    </div>
+
+    <div th:if="${structuredResume.skills}">
+      <div class="section-title">Skills</div>
+      <div th:each="group : ${structuredResume.skills}">
+        <div>
+          <span class="item-title" th:text="${group.groupName}">Skills</span>
+          <span th:text="${': ' + #strings.listJoin(group.skills, ', ')}">: Java, Python</span>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${structuredResume.experience}">
+      <div class="section-title">Experience</div>
+      <div th:each="exp : ${structuredResume.experience}">
+        <div class="item-title" th:text="${exp.title}">Job Title</div>
+        <div class="item-sub" th:text="${exp.company}">Company</div>
+        <ul th:if="${exp.bullets}">
+          <li th:each="b : ${exp.bullets}" th:text="${b}">Bullet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div th:if="${structuredResume.projects}">
+      <div class="section-title">Projects</div>
+      <div th:each="p : ${structuredResume.projects}">
+        <div class="item-title" th:text="${p.name}">Project Name</div>
+        <ul th:if="${p.bullets}">
+          <li th:each="b : ${p.bullets}" th:text="${b}">Detail</li>
+        </ul>
+      </div>
+    </div>
+
+    <div th:if="${structuredResume.education}">
+      <div class="section-title">Education</div>
+      <div th:each="e : ${structuredResume.education}">
+        <div class="item-title" th:text="${e.institution}">University</div>
+        <div class="item-sub" th:text="${e.degree}">Degree</div>
+      </div>
+    </div>
+
+    <div th:if="${structuredResume.achievements}">
+      <div class="section-title">Achievements &amp; Certifications</div>
+      <ul>
+        <li th:each="a : ${structuredResume.achievements}" th:text="${a.title}">Achievement</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+
+

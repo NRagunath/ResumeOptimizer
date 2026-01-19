@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Test - Simple</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .result-box { background: #e8f5e8; border: 2px solid #28a745; padding: 20px; margin: 20px 0; border-radius: 10px; }
+        .score-big { font-size: 2em; font-weight: bold; color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <h2>Resume Optimizer - Test Version</h2>
+        
+        <form method="post" action="/resume/optimize" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Resume Text:</label>
+                <textarea name="resumeText" class="form-control" rows="6" required>John Doe
+Software Developer
+
+Experience:
+- Worked on web applications using Java
+- Developed REST APIs
+- Used MySQL database
+
+Skills:
+- Java, Spring Boot, MySQL</textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Job Description:</label>
+                <textarea name="jobDescription" class="form-control" rows="6" required>We are looking for a Software Engineer with experience in:
+- Java Spring Boot development
+- RESTful API design
+- Microservices architecture
+- Docker containerization
+- Kubernetes orchestration
+- AWS cloud services
+- React frontend development
+- PostgreSQL database
+- Git version control
+- Agile methodologies
+- Unit testing with JUnit
+- CI/CD pipelines</textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg">🚀 Optimize Resume</button>
+        </form>
+        
+        <!-- This will ALWAYS show if resumeId exists -->
+        <div th:if="${resumeId}" class="result-box">
+            <h3>🎉 SUCCESS! Resume Optimized</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Original Score: <span class="score-big" th:text="${atsOriginal}">0</span>%</p>
+                </div>
+                <div class="col-md-6">
+                    <p>Optimized Score: <span class="score-big" th:text="${atsOptimized}">0</span>%</p>
+                </div>
+            </div>
+            <p><strong>Resume ID:</strong> <span th:text="${resumeId}">N/A</span></p>
+            <p><strong>Keywords Added:</strong> <span th:text="${injectedKeywords != null ? #lists.size(injectedKeywords) : 0}">0</span></p>
+        </div>
+        
+        <!-- Show original and optimized text -->
+        <div th:if="${originalText}" class="mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Original Resume</h4>
+                    <div class="border p-3" style="background: #f8f9fa; max-height: 300px; overflow-y: auto;">
+                        <pre th:text="${originalText}" style="white-space: pre-wrap; font-size: 0.9em;"></pre>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Optimized Resume</h4>
+                    <div class="border p-3" style="background: #f0fff0; max-height: 300px; overflow-y: auto;">
+                        <pre th:text="${optimizedText}" style="white-space: pre-wrap; font-size: 0.9em;"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Show keywords -->
+        <div th:if="${injectedKeywords}" class="mt-4">
+            <h4>Added Keywords</h4>
+            <div>
+                <span th:each="kw : ${injectedKeywords}" 
+                      class="badge bg-success me-1 mb-1" 
+                      th:text="${kw}"></span>
+            </div>
+        </div>
+        
+        <!-- Download links -->
+        <div th:if="${resumeId}" class="mt-4">
+            <a th:href="@{'/resume/pdf/' + ${resumeId}}" class="btn btn-success me-2">Download PDF</a>
+            <a th:href="@{'/resume/docx/' + ${resumeId}}" class="btn btn-outline-primary">Download DOCX</a>
+        </div>
+        
+        <hr class="mt-5">
+        <p><a href="/resume">← Back to Main Resume Page</a></p>
+    </div>
+</body>
+</html>

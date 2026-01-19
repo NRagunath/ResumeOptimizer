@@ -1,0 +1,13 @@
+# Maven build output
+target/
+
+# IDE settings
+.vscode/
+.kiro/
+
+# Binary / documents
+*.pdf
+*.docx
+
+# Logs
+*.log

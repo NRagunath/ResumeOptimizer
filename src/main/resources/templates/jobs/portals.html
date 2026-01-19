@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>11 Portal Jobs - ResumeOpt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/modern-ui.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .job-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border-left-color: #667eea;
+        }
+
+        .portal-badge {
+            font-size: 0.75em;
+            padding: 0.35em 0.8em;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-indeed {
+            background: linear-gradient(135deg, #2164f3 0%, #1a4db8 100%);
+            color: white;
+        }
+
+        .portal-naukri {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+        }
+
+        .portal-linkedin {
+            background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+            color: white;
+        }
+
+        .portal-glassdoor {
+            background: linear-gradient(135deg, #0caa41 0%, #097d30 100%);
+            color: white;
+        }
+
+        .portal-freshersworld {
+            background: linear-gradient(135deg, #ff6b6b 0%, #d63447 100%);
+            color: white;
+        }
+
+        .portal-internshala {
+            background: linear-gradient(135deg, #00a5ec 0%, #0077b5 100%);
+            color: white;
+        }
+
+        .portal-cutshort {
+            background: linear-gradient(135deg, #6c5ce7 0%, #5849c7 100%);
+            color: white;
+        }
+
+        .portal-shine {
+            background: linear-gradient(135deg, #f39c12 0%, #d68910 100%);
+            color: white;
+        }
+
+        .portal-wellfound {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .portal-jobsora {
+            background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+            color: white;
+        }
+
+        .portal-hirist {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+        }
+
+        .portal-unknown {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid #e0e0e0;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .filter-btn {
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .verified-badge {
+            color: #059669;
+            font-size: 0.9em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .portal-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .portal-stat-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-modern">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-briefcase me-2"></i>ResumeOpt
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/resume">Resume Optimizer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/jobs">All Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/jobs/portals">11 Portals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/jobs/fresher">Fresher Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/tracking">Tracking</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-modern">
+        <div class="content-wrapper animate-fade-in">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="text-gradient mb-3">
+                    <i class="fas fa-globe me-3"></i>11 Portal Job Aggregator
+                </h1>
+                <p class="lead text-white-50">
+                    Real-time job listings from Indeed, Naukri, LinkedIn, Glassdoor, Freshersworld, Internshala,
+                    Cutshort, Shine, Wellfound, Jobsora & Hirist
+                </p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" th:text="${totalJobs}">0</div>
+                        <small class="text-muted">Total Jobs</small>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" th:text="${portalCount}">0</div>
+                        <small class="text-muted">Active Portals</small>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" th:text="${freshJobsCount}">0</div>
+                        <small class="text-muted">Last 24 Hours</small>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" th:text="${weeklyJobsCount}">0</div>
+                        <small class="text-muted">This Week</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portal Statistics -->
+            <div class="card-modern mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Jobs by Portal</h5>
+                </div>
+                <div class="card-body">
+                    <div class="portal-stats">
+                        <div class="portal-stat-item" th:each="entry : ${jobsByPortal}">
+                            <span class="portal-badge" th:classappend="'portal-' + ${#strings.toLowerCase(entry.key)}"
+                                th:text="${entry.key}">Portal</span>
+                            <strong class="ms-2" th:text="${entry.value.size()}">0</strong> jobs
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="card-modern mb-4">
+                <div class="card-body">
+                    <form method="get" action="/jobs/portals" class="row g-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fas fa-search text-muted"></i>
+                                </span>
+                                <input type="text" name="keyword" class="form-control border-start-0 search-box"
+                                    placeholder="Search by job title, company, or keywords..."
+                                    th:value="${searchKeyword}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="portal" class="form-select search-box">
+                                <option value="all" th:selected="${selectedPortal == 'all'}">All Portals</option>
+                                <option th:each="entry : ${jobsByPortal}" th:value="${entry.key}"
+                                    th:text="${entry.key} + ' (' + ${entry.value.size()} + ')'"
+                                    th:selected="${selectedPortal == entry.key}">Portal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary-modern w-100">
+                                <i class="fas fa-filter me-2"></i>Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <span class="text-white-50">Showing <strong th:text="${allJobs.size()}">0</strong> of <strong
+                            th:text="${totalJobs}">0</strong> jobs</span>
+                </div>
+                <div>
+                    <a href="/jobs/export/excel" class="btn btn-success btn-sm me-2">
+                        <i class="fas fa-file-excel me-1"></i>Export to Excel
+                    </a>
+                    <a href="/jobs/api/portal-jobs" class="btn btn-outline-light btn-sm" target="_blank">
+                        <i class="fas fa-code me-1"></i>API
+                    </a>
+                </div>
+            </div>
+
+            <!-- Job Listings -->
+            <div class="card-modern">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Job Listings</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div th:if="${allJobs.empty}" class="text-center p-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No jobs found matching your criteria. Try adjusting your filters.</p>
+                    </div>
+
+                    <div th:unless="${allJobs.empty}" class="list-group list-group-flush">
+                        <div th:each="job : ${allJobs}" class="list-group-item p-4 job-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <h5 class="mb-0 me-3">
+                                            <a th:href="${job.applyUrl}" target="_blank"
+                                                class="text-decoration-none text-dark" th:text="${job.title}">Job
+                                                Title</a>
+                                        </h5>
+                                        <span class="portal-badge"
+                                            th:classappend="'portal-' + ${#strings.toLowerCase(job.source != null ? job.source.name() : 'unknown')}"
+                                            th:text="${job.source != null ? job.source.name() : 'UNKNOWN'}">Portal</span>
+                                        <i th:if="${job.linkVerified}" class="fas fa-check-circle verified-badge ms-2"
+                                            title="Link Verified"></i>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="fw-bold text-primary" th:text="${job.company}">Company</span>
+                                        <span class="mx-2 text-muted">•</span>
+                                        <span class="text-muted" th:text="${job.location}">Location</span>
+                                        <span th:if="${job.experienceRequired != null}" class="mx-2 text-muted">•</span>
+                                        <span th:if="${job.experienceRequired != null}" class="text-muted"
+                                            th:text="${job.experienceRequired} + ' years exp'">Experience</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-light text-dark border"
+                                            th:text="${#temporals.format(job.postedDate, 'MMM dd, yyyy')}">Date</span>
+                                        <span th:if="${job.jobType != null}" class="badge bg-info text-white ms-1"
+                                            th:text="${job.jobType}">Type</span>
+                                    </div>
+                                    <p class="mb-0 mt-2 text-muted small"
+                                        th:text="${#strings.abbreviate(job.description, 250)}">Description...</p>
+                                </div>
+                                <div class="ms-3">
+                                    <a th:href="${job.applyUrl}" target="_blank"
+                                        class="btn btn-primary-modern btn-sm mb-2">
+                                        Apply Now <i class="fas fa-external-link-alt ms-1"></i>
+                                    </a>
+                                    <button class="btn btn-outline-secondary btn-sm d-block" title="Save Job">
+                                        <i class="fas fa-bookmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="card-footer text-center" th:unless="${allJobs.empty}">
+                    <nav aria-label="Job listings pagination">
+                        <ul class="pagination justify-content-center mb-3">
+                            <li class="page-item" th:classappend="${currentPage} == 1 ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{/jobs/portals(page=${currentPage - 1}, size=${pageSize}, portal=${selectedPortal}, keyword=${searchKeyword})}">Previous</a>
+                            </li>
+
+                            <!-- First page -->
+                            <li class="page-item" th:classappend="${currentPage} == 1 ? 'active' : ''"
+                                th:if="${totalPages > 0}">
+                                <a class="page-link"
+                                    th:href="@{/jobs/portals(page=1, size=${pageSize}, portal=${selectedPortal}, keyword=${searchKeyword})}">1</a>
+                            </li>
+
+                            <!-- Ellipsis if needed -->
+                            <li class="page-item disabled" th:if="${currentPage > 3 && totalPages > 5}">
+                                <span class="page-link">...</span>
+                            </li>
+
+                            <!-- Pages around current page -->
+                            <li class="page-item" th:each="i : ${#numbers.sequence(
+                  currentPage > 2 ? currentPage - 1 : 2, 
+                  currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1
+                )}" th:classappend="${currentPage} == ${i} ? 'active' : ''" th:if="${totalPages > 2}">
+                                <a class="page-link"
+                                    th:href="@{/jobs/portals(page=${i}, size=${pageSize}, portal=${selectedPortal}, keyword=${searchKeyword})}"
+                                    th:text="${i}">1</a>
+                            </li>
+
+                            <!-- Ellipsis if needed -->
+                            <li class="page-item disabled" th:if="${currentPage < totalPages - 2 && totalPages > 5}">
+                                <span class="page-link">...</span>
+                            </li>
+
+                            <!-- Last page -->
+                            <li class="page-item" th:classappend="${currentPage} == ${totalPages} ? 'active' : ''"
+                                th:if="${totalPages > 1}">
+                                <a class="page-link"
+                                    th:href="@{/jobs/portals(page=${totalPages}, size=${pageSize}, portal=${selectedPortal}, keyword=${searchKeyword})}"
+                                    th:text="${totalPages}">10</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${currentPage} == ${totalPages} ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{/jobs/portals(page=${currentPage + 1}, size=${pageSize}, portal=${selectedPortal}, keyword=${searchKeyword})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="mb-0 text-muted">
+                        Page <span th:text="${currentPage}">1</span> of <span th:text="${totalPages}">10</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

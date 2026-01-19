@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fresher Dashboard - ResumeOpt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/modern-ui.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    .dashboard-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.2s;
+    }
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+    }
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat-label {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+    .application-card {
+      border-left: 4px solid #667eea;
+    }
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .status-applied { background-color: #e3f2fd; color: #1976d2; }
+    .status-interview { background-color: #fff8e1; color: #f57f17; }
+    .status-accepted { background-color: #e8f5e8; color: #388e3c; }
+    .status-rejected { background-color: #ffebee; color: #d32f2f; }
+    .fresher-friendly-badge {
+      background-color: #e8f5e8;
+      color: #388e3c;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="/"><i class="fas fa-graduation-cap me-2"></i>ResumeOpt</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/jobs"><i class="fas fa-briefcase me-1"></i>Jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/jobs/recommendations"><i class="fas fa-star me-1"></i>Recommendations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/resume"><i class="fas fa-file-alt me-1"></i>Resume</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/fresher/dashboard"><i class="fas fa-user-graduate me-1"></i>Fresher Dashboard</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="text-white text-center mb-2"><i class="fas fa-user-graduate me-3"></i>Fresher Dashboard</h1>
+        <p class="text-white-50 text-center">Track your applications and find entry-level opportunities</p>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${totalApplications}">0</div>
+          <div class="stat-label">Total Applications</div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${appliedApplications}">0</div>
+          <div class="stat-label">Applied</div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${interviewApplications}">0</div>
+          <div class="stat-label">Interviews</div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${acceptedApplications}">0</div>
+          <div class="stat-label">Accepted</div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${campusApplications}">0</div>
+          <div class="stat-label">Campus Recruit</div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="dashboard-card stat-card">
+          <div class="stat-number" th:text="${internshipToFulltimeApplications}">0</div>
+          <div class="stat-label">Intern to FT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Applications -->
+    <div class="row">
+      <div class="col-12">
+        <div class="dashboard-card p-4">
+          <h3 class="mb-4"><i class="fas fa-file-contract me-2"></i>Recent Applications</h3>
+          
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Application Date</th>
+                  <th>Status</th>
+                  <th>Interview Stage</th>
+                  <th>Fresher Friendly</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="app : ${applications}">
+                  <td>
+                    <strong th:text="${app.jobTitle}">Software Engineer</strong>
+                    <br>
+                    <small class="text-muted" th:text="${app.applicationSource}">Job Portal</small>
+                  </td>
+                  <td th:text="${app.companyName}">Tech Corp</td>
+                  <td th:text="${#temporals.format(app.applicationDate, 'MMM dd, yyyy')}">Jan 1, 2024</td>
+                  <td>
+                    <span class="status-badge" 
+                          th:classappend="${app.applicationStatus == 'Applied' ? 'status-applied' : 
+                                         app.applicationStatus == 'Interview' ? 'status-interview' : 
+                                         app.applicationStatus == 'Accepted' ? 'status-accepted' : 'status-rejected'}"
+                          th:text="${app.applicationStatus}">Applied</span>
+                  </td>
+                  <td th:text="${app.interviewStage ?: 'N/A'}">N/A</td>
+                  <td>
+                    <span class="fresher-friendly-badge" th:if="${app.fresherFriendlyScore != null and app.fresherFriendlyScore >= 7}">
+                      <i class="fas fa-thumbs-up me-1"></i>Fresher Friendly
+                    </span>
+                    <span th:unless="${app.fresherFriendlyScore != null and app.fresherFriendlyScore >= 7}">-</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="text-center mt-4" th:if="${#lists.isEmpty(applications)}">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <p class="text-muted">No applications yet. Start applying to jobs to track them here.</p>
+            <a href="/jobs" class="btn btn-primary">
+              <i class="fas fa-search me-2"></i>Find Jobs
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="dashboard-card p-4">
+          <h3 class="mb-4"><i class="fas fa-bolt me-2"></i>Quick Actions</h3>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <a href="/jobs/recommendations" class="btn btn-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="fas fa-star fa-2x mb-2"></i>
+                <span>Job Recommendations</span>
+              </a>
+            </div>
+            <div class="col-md-3 mb-3">
+              <a href="/resume" class="btn btn-success w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="fas fa-file-alt fa-2x mb-2"></i>
+                <span>Optimize Resume</span>
+              </a>
+            </div>
+            <div class="col-md-3 mb-3">
+              <a href="/fresher/applications" class="btn btn-info w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="fas fa-tasks fa-2x mb-2"></i>
+                <span>View All Applications</span>
+              </a>
+            </div>
+            <div class="col-md-3 mb-3">
+              <a href="/resume" class="btn btn-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="fas fa-graduation-cap fa-2x mb-2"></i>
+                <span>Skill Gap Analysis</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/realtime.js"></script>
+</body>
+</html>
