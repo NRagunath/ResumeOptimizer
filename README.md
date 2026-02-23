@@ -1,4 +1,4 @@
-# ResumeOpt - ATS-Optimized Resume & Job Portal
+# ResumeOpt AI - ATS-Optimized Resume & Job Portal
 
 **Your all-in-one career assistant platform for resume optimization, job search, and application tracking**
 
